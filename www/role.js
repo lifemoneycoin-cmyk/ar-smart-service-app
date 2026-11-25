@@ -1,2 +1,2 @@
 /* AR Smart Service – version */
-window.AR_VERSION='34.0.0';
+window.AR_VERSION='35.0.0';
