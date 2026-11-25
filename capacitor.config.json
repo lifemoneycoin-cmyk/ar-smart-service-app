@@ -1,0 +1,28 @@
+{
+  "appId": "com.arsmartservice.fieldapp",
+  "appName": "AR Smart Service",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#0f2942",
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "launchAutoHide": true,
+      "backgroundColor": "#0f2942",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0f2942"
+    }
+  }
+}
