@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f3a7a">
+<link rel="icon" href="icon-192.png">
+<title>AR Smart Service – Shop</title>
+<style>
+:root{--pri:#0f4bc4;--pri2:#0a2f7a;--bg:#eef3fb;--tx:#18222f;--mu:#5f6d83;--bd:#d9e1ef;--ok:#1d9e4a;--bad:#d93025}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+body{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+.w{max-width:620px;margin:0 auto}
+.top{background:linear-gradient(135deg,#0a2f7a,#0f4bc4 58%,#1e88ff 130%);color:#fff;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 14px;border-radius:0 0 22px 22px}
+.top .r{display:flex;align-items:center;gap:10px}.top img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}.top h1{margin:0;font-size:19px;flex:1}
+.top .mo{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:12px;padding:8px 12px;font:inherit;font-size:13px}
+.sr{margin-top:10px}.sr input{width:100%;border:0;border-radius:14px;padding:11px 14px;font:inherit;outline:0}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:12px 14px 4px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.cats button{flex:none;border:1.5px solid var(--bd);background:#fff;border-radius:18px;padding:7px 14px;font:inherit;font-size:14px;color:var(--pri2)}.cats button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px}
+.pc{background:#fff;border:1px solid #e3e9f4;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(15,50,120,.06)}
+.pc .im{aspect-ratio:1/1;background:#eef3fb center/cover no-repeat;position:relative}.pc .im em{position:absolute;left:8px;top:8px;background:#d93025;color:#fff;font-style:normal;font-size:11px;font-weight:700;border-radius:8px;padding:2px 7px}
+.pc .bd{padding:9px 10px 10px;display:flex;flex-direction:column;gap:3px;flex:1}.pc b{font-size:14.5px;line-height:1.25}
+.pr{font-size:16px;font-weight:800;color:var(--pri2)}.pr s{font-size:12px;color:var(--mu);font-weight:400;margin-left:5px}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#0f4bc4,#1e88ff);color:#fff;font:inherit;font-weight:700;padding:10px;text-align:center;text-decoration:none}
+.btn.sec{background:#e3edff;color:var(--pri2)}.btn:disabled{opacity:.5}
+.qty{display:flex;align-items:center;justify-content:space-between;background:#e3edff;border-radius:12px;overflow:hidden}.qty button{border:0;background:transparent;font-size:22px;width:44px;height:40px;color:var(--pri2)}.qty span{font-weight:800}
+.empty{text-align:center;color:var(--mu);padding:40px 20px}
+.cbar{position:fixed;left:12px;right:12px;bottom:calc(72px + env(safe-area-inset-bottom,0px));max-width:596px;margin:0 auto;background:#0a2f7a;color:#fff;border:0;border-radius:16px;padding:13px 16px;display:none;justify-content:space-between;align-items:center;font:inherit;font-weight:700;box-shadow:0 6px 18px rgba(10,47,122,.35);z-index:25}
+.sh{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}.sh.on{display:flex}
+.sh .in{background:#f6f9ff;width:100%;max-width:620px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 14px calc(22px + env(safe-area-inset-bottom,0px))}
+.sh h3{margin:0 0 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}.sh h3 button{border:0;background:#e3e9f4;border-radius:50%;width:34px;height:34px;font-size:18px}
+.card{background:#fff;border:1px solid #e3e9f4;border-radius:16px;padding:12px;margin-bottom:10px}
+.li{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #e3e9f4}.li:last-child{border:0}.li .t{width:52px;height:52px;border-radius:10px;background:#eef3fb center/cover;flex:none}.li .m{flex:1;font-size:14px}.li .m small{display:block;color:var(--mu)}
+.kv{display:flex;justify-content:space-between;padding:4px 0;font-size:15px}.kv.t{font-weight:800;font-size:17px;border-top:1px solid #e3e9f4;margin-top:4px;padding-top:8px}
+label.f{display:block;margin:0 0 10px}label.f span{display:block;font-size:13px;color:var(--mu);margin-bottom:4px}
+input,textarea,select{width:100%;font:inherit;border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;background:#fff;outline:0}input:focus,textarea:focus{border-color:var(--pri)}
+.seg{display:flex;gap:8px;margin-bottom:10px}.seg button{flex:1;border:1.5px solid var(--bd);background:#fff;border-radius:12px;padding:10px;font:inherit;font-weight:700;color:var(--pri2)}.seg button.on{background:#e3edff;border-color:var(--pri)}
+.er{color:var(--bad);font-size:14px;font-weight:600;margin:6px 0}.note{font-size:13px;color:var(--mu)}
+.st{display:inline-block;border-radius:10px;padding:2px 10px;font-size:12.5px;font-weight:700}
+.big{width:100%;aspect-ratio:1/1;border-radius:16px;background:#eef3fb center/contain no-repeat;margin-bottom:10px}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
+.bk39{background:rgba(255,255,255,.2);border:0;color:inherit;width:40px;height:40px;border-radius:13px;font-size:18px;flex:none;cursor:pointer}html.embed #nv,html.embed .bk39{display:none!important}
+</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head><body><script>if(new URLSearchParams(location.search).get("embed")=="1")document.documentElement.classList.add("embed")</script><div class="w">
+<div class="top"><div class="r"><button class="bk39" onclick="bk39()" aria-label="Back">←</button><img src="logo.png" alt=""><h1>🛒 Shop</h1><button class="mo" id="mo">📦 My orders</button></div><div class="sr"><input id="q" placeholder="🔎 Search products…"></div></div>
+<div class="cats" id="cats"></div>
+<div id="notice"></div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" style="display:none">No products found yet.</div>
+</div>
+<button class="cbar" id="cbar"></button>
+<div class="sh" id="sh"><div class="in" id="shin"></div></div>
+<nav id="nv"></nav>
+<script src="fb.js"></script><script src="nav.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+
+let P=[],CAT='All',Q='',CART={},CFG={},SHOP={charge:0,freeAbove:0,cod:true,upiOn:true,minOrder:0,notice:''},USER=null,PROF=null,ORD=[],PAY='cod',BUSY=0,ERR='';
+try{CART=JSON.parse(localStorage.getItem('arcart')||'{}')}catch(e){}
+const saveCart=()=>{try{localStorage.setItem('arcart',JSON.stringify(CART))}catch(e){}};
+const byId=id=>P.find(p=>p.id==id||p._id==id);
+const live=()=>P.filter(p=>p.on!==false);
+function cartItems(){return Object.keys(CART).map(id=>({p:byId(id),q:CART[id]})).filter(x=>x.p&&x.q>0&&x.p.on!==false)}
+function totals(){const it=cartItems();const sub=it.reduce((a,x)=>a+x.p.price*x.q,0);const ship=!it.length?0:(SHOP.freeAbove>0&&sub>=SHOP.freeAbove?0:(+SHOP.charge||0));return{it,sub,ship,total:sub+ship,n:it.reduce((a,x)=>a+x.q,0)}}
+function stockOf(p){return p.stock==null||p.stock===''?999:+p.stock}
+function setQ(id,d){const p=byId(id);if(!p)return;const cur=CART[id]||0,nx=Math.max(0,Math.min(stockOf(p),cur+d));if(nx>cur&&nx==cur){}if(nx===0)delete CART[id];else CART[id]=nx;saveCart();draw();if($('#sh').classList.contains('on')&&SHEET=='cart')cartSheet()}
+function draw(){
+ const cats=['All',...new Set(live().map(p=>p.cat).filter(Boolean))];
+ $('#cats').innerHTML=cats.length>2?cats.map(c=>`<button class="${c==CAT?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join(''):'';
+ const l=live().filter(p=>(CAT=='All'||p.cat==CAT)&&(!Q||(p.name+' '+(p.desc||'')+' '+(p.cat||'')).toLowerCase().includes(Q)));
+ $('#grid').innerHTML=l.map(p=>{const q=CART[p._id]||0,out=stockOf(p)<=0,off=p.mrp>p.price?Math.round((1-p.price/p.mrp)*100):0;
+  return `<div class="pc"><div class="im" data-v="${p._id}" style="${p.img?`background-image:url(${p.img})`:''}">${off?`<em>${off}% off</em>`:''}</div><div class="bd"><b data-v="${p._id}">${esc(p.name)}</b><div class="pr">${inr(p.price)}${p.mrp>p.price?`<s>${inr(p.mrp)}</s>`:''}</div>${out?'<div class="note" style="color:var(--bad)">Out of stock</div>':q?`<div class="qty"><button data-d="-1" data-i="${p._id}">−</button><span>${q}</span><button data-d="1" data-i="${p._id}">+</button></div>`:`<button class="btn" data-add="${p._id}">Add to cart</button>`}</div></div>`}).join('');
+ $('#empty').style.display=l.length?'none':'block';
+ const t=totals();const b=$('#cbar');b.style.display=t.n?'flex':'none';b.innerHTML=`<span>🛒 ${t.n} Items</span><span>${inr(t.sub)} • View cart ›</span>`;
+ $('#notice').innerHTML=SHOP.notice?`<div class="card" style="margin:10px 14px 0;background:#fff8e1;border-color:#f3dd9a;font-size:14px">📢 ${esc(SHOP.notice)}</div>`:'';
+}
+let SHEET='';
+function open(h,k){SHEET=k||'';$('#shin').innerHTML=h;$('#sh').classList.add('on')}
+function close(){$('#sh').classList.remove('on');SHEET=''}
+$('#sh').addEventListener('click',e=>{if(e.target.id=='sh')close()});
+function detail(id){const p=byId(id);if(!p)return;const q=CART[id]||0,out=stockOf(p)<=0;
+ open(`<h3>${esc(p.name)}<button data-x>✕</button></h3>${p.img?`<div class="big" style="background-image:url(${p.img})"></div>`:''}<div class="pr" style="font-size:22px">${inr(p.price)}${p.mrp>p.price?`<s>${inr(p.mrp)}</s>`:''}</div>${p.cat?`<div class="note">Category: ${esc(p.cat)}</div>`:''}<p style="white-space:pre-wrap;font-size:15px">${esc(p.desc||'')}</p>${stockOf(p)<=5&&!out&&stockOf(p)<999?`<div class="note" style="color:var(--bad)">Only ${stockOf(p)} left</div>`:''}${out?'<div class="er">Out of stock</div>':`<button class="btn" data-add="${p._id}" data-close="1" style="margin-top:8px">${q?'Add more to cart':'Add to cart'}</button>`}`,'detail')}
+function cartSheet(){
+ const t=totals();
+ if(!t.it.length){open('<h3>🛒 Cart<button data-x>✕</button></h3><div class="empty">Cart is empty.</div>','cart');return}
+ const u=PROF||{};
+ open(`<h3>🛒 Cart<button data-x>✕</button></h3><div class="card">${t.it.map(x=>`<div class="li"><div class="t" style="${x.p.img?`background-image:url(${x.p.img})`:''}"></div><div class="m"><b>${esc(x.p.name)}</b><small>${inr(x.p.price)} × ${x.q}</small></div><div class="qty" style="width:112px"><button data-d="-1" data-i="${x.p._id}">−</button><span>${x.q}</span><button data-d="1" data-i="${x.p._id}">+</button></div></div>`).join('')}<div class="kv"><span>Products total</span><b>${inr(t.sub)}</b></div><div class="kv"><span>Delivery</span><b>${t.ship?inr(t.ship):'Free'}</b></div>${SHOP.freeAbove>0&&t.ship?`<div class="note">${inr(SHOP.freeAbove)} Free delivery on orders above</div>`:''}<div class="kv t"><span>Total</span><b>${inr(t.total)}</b></div></div>
+ ${USER?`<div class="card"><b>Delivery details</b><div style="height:8px"></div><label class="f"><span>Name *</span><input id="o_n" value="${esc(u.name||'')}" maxlength="80"></label><label class="f"><span>Mobile *</span><input id="o_m" inputmode="tel" value="${esc(u.mobile||'')}" maxlength="14"></label><label class="f"><span>Full address *</span><textarea id="o_a" rows="2" maxlength="250">${esc(u.addr||'')}</textarea></label><label class="f"><span>Pincode *</span><input id="o_p" inputmode="numeric" maxlength="6" value="${esc(u.pin||'')}"></label></div>
+ <div class="card"><b>Payment</b><div style="height:8px"></div><div class="seg">${SHOP.cod!==false?`<button data-pay="cod" class="${PAY=='cod'?'on':''}">💵 On delivery (COD)</button>`:''}${SHOP.upiOn!==false&&CFG.upi?`<button data-pay="upi" class="${PAY=='upi'?'on':''}">📲 UPI now</button>`:''}</div>
+ ${PAY=='upi'?`<a class="btn sec" href="upi://pay?pa=${encodeURIComponent(CFG.upi)}&pn=${encodeURIComponent(CFG.name||'AR Smart Service')}&am=${t.total}&cu=INR&tn=${encodeURIComponent('Shop order')}" style="margin-bottom:8px">📲 ${inr(t.total)} Send via UPI</a><label class="f"><span>UTR / transaction number (after sending) *</span><input id="o_u" inputmode="numeric" maxlength="30" placeholder="12-digit UTR"></label><div class="note">Order will be confirmed only after the payment is checked.</div>`:'<div class="note">Pay in cash or UPI on receiving the goods.</div>'}</div>
+ <label class="f"><span>Note (optional)</span><input id="o_t" maxlength="200"></label>${ERR?`<div class="er">${esc(ERR)}</div>`:''}<button class="btn" id="place" ${BUSY?'disabled':''}>✅ Place order • ${inr(t.total)}</button>`
+ :`<div class="card"><b>Log in to place an order</b><p class="note">Your cart will be saved. Log in or create an account, then come back to order.</p><a class="btn" href="booking.html#my=1">Log in / Create account</a></div>`}`,'cart')}
+async function place(){
+ if(BUSY)return;const t=totals();ERR='';
+ const n=$('#o_n').value.trim(),m=$('#o_m').value.replace(/\D/g,'').slice(-10),a=$('#o_a').value.trim(),p=$('#o_p').value.replace(/\D/g,''),u=PAY=='upi'?($('#o_u').value||'').trim():'',note=$('#o_t').value.trim();
+ const bad=!n?'Enter name':m.length!=10?'Enter 10-digit mobile number':a.length<8?'Enter full address':p.length!=6?'Enter 6-digit pincode':(+SHOP.minOrder>0&&t.sub<+SHOP.minOrder)?'Minimum '+inr(SHOP.minOrder)+' wants to order':(PAY=='upi'&&u.length<6)?'Enter UPI UTR number':'';
+ if(bad){ERR=bad;cartSheet();return}
+ for(const x of t.it)if(stockOf(x.p)<x.q){ERR=x.p.name+' stock is running low';cartSheet();return}
+ BUSY=1;cartSheet();
+ const id=FB.newId(),d=new Date(),no='AR'+String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+id.slice(0,4).toUpperCase();
+ const ord={no,uid:USER.uid,email:USER.email||'',name:n,mobile:m,addr:a,pin:p,items:t.it.map(x=>({id:x.p._id,name:x.p.name,price:x.p.price,qty:x.q})),sub:t.sub,ship:t.ship,total:t.total,pay:PAY,utr:u,note,status:'new',createdAt:Date.now()};
+ try{await FB.docSet('orders',id,ord);try{await FB.setProfile(USER.uid,{name:n,mobile:m,addr:a,pin:p,email:USER.email||''})}catch(e){PROF=Object.assign(PROF||{},{name:n,mobile:m,addr:a,pin:p})}
+  CART={};saveCart();BUSY=0;draw();
+  const wa=(CFG.phone||'').replace(/\D/g,'').slice(-10),txt=`New order ${no}\n${ord.items.map(i=>i.name+' × '+i.qty).join('\n')}\nTotal ${inr(t.total)} (${PAY=='cod'?'COD':'UPI, UTR '+u})\n${n}, ${m}\n${a} - ${p}`;
+  open(`<h3>🎉 Order received<button data-x>✕</button></h3><div class="card"><div class="kv"><span>Order number</span><b>${no}</b></div><div class="kv"><span>Total</span><b>${inr(t.total)}</b></div><div class="note" style="margin-top:6px">We will confirm soon. Status "My orders" to view.</div></div>${wa.length==10?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/91${wa}?text=${encodeURIComponent(txt)}">💬 Tell us on WhatsApp</a><div style="height:8px"></div>`:''}<button class="btn sec" id="gomo">📦 View my orders</button>`,'done');
+ }catch(e){BUSY=0;ERR='Could not place order – check internet and try again';cartSheet()}}
+const STX={new:['New – under review','#fff3cd','#7a5b00'],confirmed:['Confirm','#d7ecff','#0a4a8a'],packed:['Packed','#e5dcff','#4a2c9a'],shipped:['Sent','#d4f5df','#146b35'],delivered:['Delivered','#c6f0d2','#0b5a28'],cancelled:['Cancelled','#fde0dd','#a5201a']};
+function ordSheet(){
+ if(!USER){open('<h3>📦 My orders<button data-x>✕</button></h3><div class="card"><p class="note">Log in to see your orders.</p><a class="btn" href="booking.html#my=1">Log in / Create account</a></div>','ord');return}
+ open(`<h3>📦 My orders<button data-x>✕</button></h3>${ORD.length?ORD.map(o=>{const s=STX[o.status]||STX.new;return `<div class="card"><div class="kv"><b>${esc(o.no||'')}</b><span class="st" style="background:${s[1]};color:${s[2]}">${s[0]}</span></div>${(o.items||[]).map(i=>`<div class="note">${esc(i.name)} × ${i.qty}</div>`).join('')}<div class="kv"><span>Total (${o.pay=='cod'?'COD':'UPI'})</span><b>${inr(o.total)}</b></div>${o.pay=='upi'?`<div class="note">${o.payOk?'✅ Payment confirmed':'⏳ Payment check pending'}</div>`:''}${o.awb?`<div class="note">🚚 ${esc(o.courier||'Courier')} • AWB: <b>${esc(o.awb)}</b></div>${o.trackUrl&&/^https:\/\//.test(o.trackUrl)?`<a class="btn sec" target="_blank" rel="noopener" href="${esc(o.trackUrl)}" style="margin-top:6px">📍 Track</a>`:''}`:''}${o.adminNote?`<div class="note">💬 ${esc(o.adminNote)}</div>`:''}</div>`}).join(''):'<div class="empty">No orders yet.</div>'}`,'ord')}
+document.addEventListener('click',e=>{const t=e.target;
+ const c=t.closest('[data-c]');if(c){CAT=c.dataset.c;draw();return}
+ const ad=t.closest('[data-add]');if(ad){const id=ad.dataset.add,p=byId(id);if(p&&stockOf(p)>(CART[id]||0)){CART[id]=(CART[id]||0)+1;saveCart();draw()}if(ad.dataset.close)close();return}
+ const dd=t.closest('[data-d]');if(dd){setQ(dd.dataset.i,+dd.dataset.d);return}
+ const v=t.closest('[data-v]');if(v){detail(v.dataset.v);return}
+ if(t.closest('[data-x]')){close();return}
+ const pay=t.closest('[data-pay]');if(pay){PAY=pay.dataset.pay;cartSheet();return}
+ if(t.id=='place'||t.closest('#place')){place();return}
+ if(t.id=='gomo'){ordSheet();return}
+});
+$('#cbar').onclick=cartSheet;$('#mo').onclick=ordSheet;
+$('#q').addEventListener('input',e=>{Q=e.target.value.trim().toLowerCase();draw()});
+FB.getConfig().then(c=>{if(c)CFG=c;}).catch(()=>{});
+FB.docGet('config','shop').then(s=>{if(s)Object.assign(SHOP,s);draw()}).catch(()=>{});
+FB.watch('products',null,null,l=>{P=l.map(x=>Object.assign(x,{price:+x.price||0,mrp:+x.mrp||0}));P.sort((a,b)=>(a.sort||0)-(b.sort||0)||String(a.name).localeCompare(b.name));draw()},()=>{$('#empty').style.display='block';$('#empty').textContent='Products did not load – check internet.'});
+FB.onAuth(async u=>{USER=u;if(!u){ORD=[];return}
+ try{const r=await FB.role(u);ARNAV.set(r);ARNAV.render($('#nv'),'shop',r)}catch(e){}
+ try{PROF=await FB.getProfile(u.uid)}catch(e){}
+ try{FB.watch('orders','uid',u.uid,l=>{ORD=l.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));if(SHEET=='ord')ordSheet()})}catch(e){}});
+if(!window.AR_IS_APK&&location.hostname!=='localhost'&&'serviceWorker'in navigator&&location.protocol.indexOf('http')==0)navigator.serviceWorker.register('sw.js').catch(()=>{});
+draw();
+</script><script>function bk39(){if(history.length>1)history.back();else location.href="index.html"}</script></body></html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f4bc4">
+<link rel="icon" href="icon-192.png">
+<title>AR Smart Service – Error Codes</title>
+<style>
+:root{--pri:#0f4bc4;--pri2:#0a2f7a;--bg:#f2f5fb;--tx:#18222f;--mu:#5f6d83;--bd:#d9e1ef;--ok:#1d9e4a;--bad:#d93025}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+body{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+.w{max-width:620px;margin:0 auto}
+.top{background:linear-gradient(135deg,#0a2f7a,#0f4bc4 58%,#1e88ff 130%);color:#fff;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 18px;border-radius:0 0 22px 22px}
+.top h1{margin:0;font-size:18px}.top p{margin:2px 0 0;font-size:12.5px;opacity:.88}.thead{display:flex;align-items:center;gap:12px}.bk{background:rgba(255,255,255,.2);border:0;color:#fff;width:40px;height:40px;border-radius:13px;font-size:18px;flex:none}
+.card{background:#fff;border-radius:20px;padding:14px;margin:12px 14px 0;border:1px solid #e3e9f4;box-shadow:0 2px 10px rgba(15,50,120,.07)}
+.card h2{margin:0 0 8px;font-size:15px;color:var(--pri2)}
+input,textarea{font:inherit;color:inherit;width:100%;min-height:48px;padding:10px 12px;border:1.5px solid var(--bd);border-radius:12px;background:#fff;outline:0}
+input:focus{border-color:#1e88ff;box-shadow:0 0 0 3px rgba(30,136,255,.18)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--bd);background:#fff;border-radius:22px;padding:8px 14px;min-height:40px;font:inherit;font-size:14.5px;color:var(--tx)}
+.chip.on{background:linear-gradient(135deg,#0f4bc4,#1e88ff);border-color:transparent;color:#fff;font-weight:600}
+.btn{display:block;width:100%;min-height:48px;border:0;border-radius:16px;background:linear-gradient(135deg,#0f4bc4,#1e88ff);color:#fff;font:inherit;font-weight:700;text-align:center;text-decoration:none;padding:12px;cursor:pointer;box-shadow:0 3px 10px rgba(15,75,196,.25)}
+.btn.sec{background:#e4ecfb;color:var(--pri2);box-shadow:none}.btn.gr{background:linear-gradient(135deg,#17893f,#2bbf63)}.btn:disabled{opacity:.6}
+.row{display:flex;gap:8px;margin-top:8px}.row>*{flex:1}
+.li{display:flex;gap:10px;align-items:center;background:#fff;border-radius:16px;padding:11px 12px;margin:8px 14px 0;border:1px solid #e3e9f4;box-shadow:0 1px 6px rgba(15,50,120,.06);cursor:pointer}
+.li .cd{min-width:58px;text-align:center;font-weight:800;font-size:16px;color:#fff;background:linear-gradient(135deg,#0a2f7a,#0f4bc4);border-radius:12px;padding:8px 6px}
+.li .m{flex:1;min-width:0}.li small{color:var(--mu)}
+.mu{color:var(--mu);font-size:13.5px}.err{color:var(--bad);font-size:14px;margin:6px 0}.okm{color:var(--ok);font-size:14px;margin:6px 0}
+.empty{text-align:center;color:var(--mu);padding:26px 16px}
+.lock{position:relative;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(45deg,#eef2fa,#eef2fa 10px,#e6ecf8 10px,#e6ecf8 20px);padding:22px 14px;text-align:center}
+.lock b{display:block;font-size:17px;color:var(--pri2)}
+ol,ul{margin:6px 0 0;padding-left:20px}li.s{margin:4px 0}
+.full{position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.wm{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.wm span{position:absolute;left:-20%;width:140%;text-align:center;transform:rotate(-24deg);color:rgba(15,50,120,.13);font-weight:800;font-size:15px;white-space:nowrap}
+body.hide .full{filter:blur(18px)}
+@media print{body{display:none!important}}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
+.bd{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;background:#ffefd1;color:#8a5600}.bd.g{background:#dcf5e6;color:#126b34}
+html.embed .top,html.embed #bn{display:none!important}
+</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head><body><script>if(new URLSearchParams(location.search).get("embed")=="1")document.documentElement.classList.add("embed")</script><div class="w">
+<div class="top"><div class="thead"><button class="bk" onclick="bk()" aria-label="Back">←</button><div><h1>🔎 Error code guide</h1><p>AC, washing machine, fridge, water chiller</p></div></div></div>
+<div id="app"></div></div>
+<nav class="bnav" id="bn"></nav>
+<script src="errdb.js"></script><script src="fb.js"></script><script src="nav.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let TYPE='ac',BRAND='',Q='',SEL=null,USER=null,ROLE='customer',PROF=null,CFG={},CUSTOM=[],PAYS=[],MSG='',BUSY=0;
+const FEE=()=>{const f=CFG.errFee;return f==null||f===''?0:Math.max(0,+f||0)};
+const ALL=()=>{const d={};ERRDB.types.forEach(t=>{d[t.id]={}});Object.keys(ERRDB.data).forEach(t=>{d[t]=d[t]||{};Object.keys(ERRDB.data[t]).forEach(b=>{d[t][b]=ERRDB.data[t][b].map(r=>({c:r[0],t:r[1],cause:r[2].split('|'),fix:r[3].split('|')}))})});
+ CUSTOM.forEach(x=>{if(!x||!x.code)return;const t=x.type||'ac',b=x.brand||'Other';d[t]=d[t]||{};d[t][b]=d[t][b]||[];const i=d[t][b].findIndex(e=>e.c.toLowerCase()==String(x.code).toLowerCase());const e={c:x.code,t:x.title||'',cause:x.cause||[],fix:x.fix||[]};if(i>=0)d[t][b][i]=e;else d[t][b].push(e)});return d};
+const keyOf=(t,b,c)=>t+'|'+b+'|'+c;
+const PAID=k=>PAYS.find(p=>p.key==k&&p.status=='ok');
+const PEND=k=>PAYS.find(p=>p.key==k&&p.status=='pending');
+function access(k){if(ROLE=='admin')return 1;if(FEE()<=0)return 1;if(ROLE=='tech'&&CFG.errTechFree)return 1;return PAID(k)?1:0}
+function bk(){if(SEL){SEL=null;MSG='';draw();return}if(history.length>1)history.back();else location.href='index.html'}
+function typeName(t){const x=ERRDB.types.find(y=>y.id==t);return x?x.n:t}
+function draw(){
+ const A=ALL(),T=A[TYPE]||{},brands=Object.keys(T);if(!BRAND||!T[BRAND])BRAND=brands[0]||'';
+ let h='';
+ if(SEL){h=detail();$('#app').innerHTML=h;bind();return}
+ h+=`<div class="card"><h2>1) Choose machine</h2><div class="chips">${ERRDB.types.map(t=>`<button class="chip ${t.id==TYPE?'on':''}" data-t="${t.id}">${t.ic} ${esc(t.n)}</button>`).join('')}</div>
+ <h2 style="margin-top:12px">2) Choose brand</h2><div class="chips">${brands.map(b=>`<button class="chip ${b==BRAND?'on':''}" data-b="${esc(b)}">${esc(b)} <small>${(T[b]||[]).length||''}</small></button>`).join('')}</div>
+ <h2 style="margin-top:12px">3) Type / search the code</h2><input id="q" placeholder="e.g. CH05, E101, IE…" value="${esc(Q)}" autocomplete="off"></div>`;
+ const qq=Q.trim().toLowerCase();const list=qq?(T[BRAND]||[]).filter(e=>(e.c+' '+e.t).toLowerCase().includes(qq)).slice(0,25):[];
+ if(!qq)h+=`<div class="empty">Upar machine aur brand chunein, phir code type karein (jaise E101, CH05).</div>`;
+ else if(!list.length)h+=`<div class="empty">${(T[BRAND]||[]).length?'This code was not found.':'Codes for this brand have not been added yet.'}<br><small>Get the owner to link it, or search under another brand/code.</small></div>`;
+ list.forEach((e,i)=>{const k=keyOf(TYPE,BRAND,e.c),ok=access(k);h+=`<div class="li" data-i="${(T[BRAND]||[]).indexOf(e)}"><div class="cd">${esc(e.c)}</div><div class="m"><b>${esc(e.t)}</b><br><small>${ok?'✅ Full details unlocked':'🔒 Unlock to see the fix'}</small></div></div>`});
+ h+=`<p class="mu" style="margin:14px 18px">⚠️ This is a general guide. The meaning of a code can differ by model/series – be sure to check the machine’s service manual.</p>`;
+ $('#app').innerHTML=h;bind()}
+function wmHtml(){const n=((PROF&&PROF.name)||(USER&&USER.displayName)||'')+' '+((USER&&USER.email)||'');let s='';for(let i=0;i<9;i++)s+=`<span style="top:${i*12-4}%">${esc(n)} • AR Smart Service • ${esc(n)}</span>`;return `<div class="wm">${s}</div>`}
+function detail(){
+ const e=SEL.e,k=keyOf(SEL.t,SEL.b,e.c),ok=access(k),fee=FEE();
+ let h=`<div class="card"><button class="chip" id="bk">← Back</button><div style="margin-top:10px"><span class="bd">${esc(typeName(SEL.t))} • ${esc(SEL.b)}</span></div><h2 style="font-size:22px;margin:8px 0 2px">${esc(e.c)}</h2><div style="font-weight:600">${esc(e.t)}</div></div>`;
+ if(ok){
+  h+=`<div class="card full" id="fullc"><h2>🔎 Possible causes</h2><ul>${e.cause.map(x=>`<li class="s">${esc(x)}</li>`).join('')}</ul><h2 style="margin-top:12px">🛠️ Checks and fixes (in order)</h2><ol>${e.fix.map(x=>`<li class="s">${esc(x)}</li>`).join('')}</ol><p class="mu" style="margin-top:12px">Safety: switch off the machine’s power before opening any part.</p>${USER?wmHtml():''}</div>
+  <div class="card"><button class="btn gr" id="pdf" ${BUSY?'disabled':''}>${BUSY?'⏳ Creating PDF…':'📄 Download PDF'}</button><div class="${MSG.startsWith('✅')?'okm':'err'}">${esc(MSG)}</div></div>`;
+ }else{
+  h+=`<div class="card"><div class="lock"><div style="font-size:34px">🔒</div><b>Cause and fix are locked</b><div class="mu" style="margin-top:4px">Full details + PDF for only ₹${fee}</div></div>${payBox(k,fee)}</div>`;
+ }
+ return h}
+function payBox(k,fee){
+ if(!USER)return `<p class="mu" style="margin-top:12px">Log in first, then pay to unlock.</p><a class="btn" href="booking.html#my=1" style="margin-top:8px">🔐 Login / new account</a>`;
+ const p=PEND(k);
+ if(p)return `<div class="card" style="margin:12px 0 0;background:#fff8e6"><b>⏳ Payment verification in progress</b><div class="mu">UTR: ${esc(p.utr)} • It will open automatically after the owner’s approval.</div></div>`;
+ const rej=PAYS.find(x=>x.key==k&&x.status=='no');
+ const upi=String(CFG.upi||'').trim();
+ if(!upi)return `<p class="err">Payment is not active right now – contact the owner.</p>`;
+ const link='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent(CFG.name||'AR Smart Service')+'&am='+fee+'&cu=INR&tn='+encodeURIComponent('ERR '+SEL.e.c);
+ return `${rej?'<p class="err">The previous payment was not approved – resend with the correct UTR.</p>':''}<ol style="margin-top:12px"><li class="s"><a class="btn" href="${link}">💳 Pay ₹${fee} via UPI</a><div class="mu">UPI ID: <b>${esc(upi)}</b> (If the app doesn’t open, send to this ID from any UPI app)</div></li>
+ <li class="s">Shown in the app after payment <b>UTR / Transaction ID</b> Enter here:<input id="utr" inputmode="numeric" placeholder="12-digit UTR" style="margin-top:6px"></li></ol>
+ <button class="btn" id="paysend">✅ Payment made – send unlock request</button><div class="${MSG.startsWith('✅')?'okm':'err'}" id="pm">${esc(MSG)}</div>
+ <p class="mu">The owner will check your UPI payment and approve it; then this will open.</p>`}
+function bind(){
+ document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{TYPE=b.dataset.t;BRAND='';draw()});
+ document.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{BRAND=b.dataset.b;draw()});
+ const q=$('#q');if(q)q.oninput=()=>{Q=q.value;const p=q.selectionStart;draw();const n=$('#q');n.focus();try{n.setSelectionRange(p,p)}catch(e){}};
+ document.querySelectorAll('.li').forEach(l=>l.onclick=()=>{const A=ALL();const e=A[TYPE][BRAND][+l.dataset.i];SEL={t:TYPE,b:BRAND,e};MSG='';draw();scrollTo(0,0)});
+ const bk=$('#bk');if(bk)bk.onclick=()=>{SEL=null;MSG='';draw()};
+ const ps=$('#paysend');if(ps)ps.onclick=sendPay;const pf=$('#pdf');if(pf)pf.onclick=mkPdf}
+async function sendPay(){
+ const utr=($('#utr').value||'').replace(/\s/g,'');if(!/^[A-Za-z0-9]{8,30}$/.test(utr)){MSG='Enter the correct UTR / Transaction ID (at least 8 characters/digits)';$('#pm').textContent=MSG;return}
+ const k=keyOf(SEL.t,SEL.b,SEL.e.c);$('#paysend').disabled=true;
+ try{await FB.docSet('epay',FB.newId(),{uid:USER.uid,email:USER.email||'',name:(PROF&&PROF.name)||USER.displayName||'',mobile:(PROF&&PROF.mobile)||'',key:k,label:SEL.b+' '+SEL.e.c+' ('+typeName(SEL.t)+')',amt:FEE(),utr:utr,status:'pending',createdAt:Date.now()});MSG='✅ Sent'}
+ catch(e){MSG='Could not send – '+((e&&e.code)||'Check internet')}draw()}
+/* PDF (one page, with watermark) */
+function pdfHtml(){const e=SEL.e,nm=((PROF&&PROF.name)||(USER&&USER.displayName)||'')+' '+((USER&&USER.email)||'');let w='';for(let i=0;i<10;i++)w+=`<div style="position:absolute;left:-10%;width:120%;top:${i*115}px;text-align:center;transform:rotate(-24deg);color:rgba(15,50,120,.12);font-weight:800;font-size:22px;white-space:nowrap">${esc(nm)} • AR Smart Service</div>`;
+ const L=a=>a.map(x=>`<li style="margin:6px 0">${esc(x)}</li>`).join('');
+ return `<div xmlns="http://www.w3.org/1999/xhtml" style="position:relative;width:794px;height:1123px;background:#fff;font-family:system-ui,'Noto Sans Devanagari',sans-serif;color:#18222f;overflow:hidden"><div style="background:linear-gradient(135deg,#0a2f7a,#0f4bc4);color:#fff;padding:28px 40px"><div style="font-size:26px;font-weight:800">AR Smart Service</div><div style="opacity:.9;font-size:14px">${esc(CFG.name||'AR Smart Service')} • Error code guide</div></div>
+ <div style="padding:30px 40px"><div style="display:inline-block;background:#e6eefc;color:#0a2f7a;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700">${esc(typeName(SEL.t))} • ${esc(SEL.b)}</div><div style="font-size:44px;font-weight:800;color:#0a2f7a;margin:12px 0 4px">${esc(e.c)}</div><div style="font-size:21px;font-weight:600">${esc(e.t)}</div>
+ <div style="font-size:19px;font-weight:700;color:#0a2f7a;margin-top:26px">Possible causes</div><ul style="font-size:17px;line-height:1.5;padding-left:24px">${L(e.cause)}</ul>
+ <div style="font-size:19px;font-weight:700;color:#0a2f7a;margin-top:20px">Checks and fixes (in order)</div><ol style="font-size:17px;line-height:1.5;padding-left:24px">${L(e.fix)}</ol>
+ <div style="margin-top:30px;font-size:13px;color:#5f6d83;border-top:1px solid #d9e1ef;padding-top:12px">Safety: switch off the machine’s power before opening any part. This is a general guide; differences may apply by model. Buyer: ${esc(nm)} • ${new Date().toLocaleDateString('en-IN')}</div></div>${w}</div>`}
+async function mkPdf(){
+ BUSY=1;MSG='';draw();
+ try{const W=794,H=1123,SC=2,xml=pdfHtml();
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W*SC}" height="${H*SC}" viewBox="0 0 ${W} ${H}"><foreignObject x="0" y="0" width="${W}" height="${H}">${xml}</foreignObject></svg>`;
+  const img=new Image();await new Promise((res,rej)=>{img.onload=res;img.onerror=()=>rej(new Error('render'));img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)});
+  const cv=document.createElement('canvas');cv.width=W*SC;cv.height=H*SC;const c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);c.drawImage(img,0,0,cv.width,cv.height);
+  const u8=await new Promise(r=>cv.toBlob(b=>b.arrayBuffer().then(a=>r(new Uint8Array(a))),'image/jpeg',.92));
+  const blob=buildPdf([{u8,w:cv.width,h:cv.height}]);const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AR-'+SEL.b.replace(/\W+/g,'')+'-'+SEL.e.c+'.pdf';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);MSG='✅ PDF downloaded'}
+ catch(e){MSG='PDF could not be created – try again'}
+ BUSY=0;draw()}
+function buildPdf(pages){const enc=new TextEncoder(),parts=[],offs=[];let len=0;const push=x=>{const u=typeof x=='string'?enc.encode(x):x;parts.push(u);len+=u.length};
+ const PW=595.28,PHh=841.89,n=2+pages.length*3;push('%PDF-1.4\n%âãÏÓ\n');
+ offs[1]=len;push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');offs[2]=len;push(`2 0 obj\n<< /Type /Pages /Count ${pages.length} /Kids [${pages.map((_,i)=>(3+i*3)+' 0 R').join(' ')}] >>\nendobj\n`);
+ pages.forEach((p,i)=>{const pn=3+i*3,cn=pn+1,im=pn+2;let iw=Math.min(PW,PHh*p.w/p.h),ih=iw*p.h/p.w,x=(PW-iw)/2,y=PHh-ih;
+  offs[pn]=len;push(`${pn} 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PHh}] /Resources << /XObject << /Im0 ${im} 0 R >> >> /Contents ${cn} 0 R >>\nendobj\n`);
+  const cs=`q ${iw.toFixed(2)} 0 0 ${ih.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)} cm /Im0 Do Q`;offs[cn]=len;push(`${cn} 0 obj\n<< /Length ${cs.length} >>\nstream\n${cs}\nendstream\nendobj\n`);
+  offs[im]=len;push(`${im} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${p.u8.length} >>\nstream\n`);push(p.u8);push('\nendstream\nendobj\n')});
+ const xo=len;push(`xref\n0 ${n+1}\n0000000000 65535 f \n`);for(let k=1;k<=n;k++)push(String(offs[k]).padStart(10,'0')+' 00000 n \n');push(`trailer\n<< /Size ${n+1} /Root 1 0 R >>\nstartxref\n${xo}\n%%EOF`);return new Blob(parts,{type:'application/pdf'})}
+/* Attempt to block screenshots/copying (full blocking is not possible in a browser – the watermark is the real protection) */
+document.addEventListener('contextmenu',e=>{if(SEL&&e.target.closest&&e.target.closest('.full'))e.preventDefault()});
+document.addEventListener('copy',e=>{if(SEL&&access(keyOf(SEL.t,SEL.b,SEL.e.c))&&FEE()>0&&ROLE!='admin')e.preventDefault()});
+document.addEventListener('keyup',e=>{if(e.key=='PrintScreen'){try{navigator.clipboard.writeText('AR Smart Service')}catch(x){}document.body.classList.add('hide');setTimeout(()=>document.body.classList.remove('hide'),1500)}});
+document.addEventListener('visibilitychange',()=>document.body.classList.toggle('hide',document.hidden));
+window.addEventListener('blur',()=>document.body.classList.add('hide'));window.addEventListener('focus',()=>document.body.classList.remove('hide'));
+let unsub=null;
+async function start(){
+ draw();
+ FB.getConfig().then(c=>{if(c){CFG=c;draw()}}).catch(()=>{});
+ FB.docGet('config','codes').then(d=>{if(d&&d.items){CUSTOM=d.items;draw()}}).catch(()=>{});
+ FB.onAuth(async u=>{USER=u;if(unsub){try{unsub()}catch(e){}unsub=null}PAYS=[];
+  if(u){try{ROLE=await FB.role(u)}catch(e){ROLE='customer'}try{PROF=await FB.getProfile(u.uid)}catch(e){}
+   if(ROLE!='admin')try{unsub=await FB.watch('epay','uid',u.uid,l=>{PAYS=l;draw()})}catch(e){}}
+  else{ROLE='customer';PROF=null}
+  nav();draw()})}
+function nav(){if(!USER){$('#bn').innerHTML='';return}if(ROLE)ARNAV.set(ROLE);ARNAV.render($('#bn'),'codes',ROLE)}
+nav();start();
+</script></body></html>

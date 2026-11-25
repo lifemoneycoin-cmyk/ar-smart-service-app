@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your bill</title>
+<style>
+:root{--bg:#f1f5fb;--card:#fff;--tx:#0f172a;--pri:#0f4bc4}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#111a2e;--tx:#e5e9f2}}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);display:flex;min-height:100vh;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+.c{background:var(--card);border-radius:18px;padding:22px;max-width:420px;width:100%;text-align:center;box-shadow:0 10px 30px -18px rgba(0,0,0,.4)}
+h1{font-size:20px;margin:0 0 6px}p{margin:6px 0 16px;opacity:.75;font-size:14px}
+a.b{display:block;background:var(--pri);color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-weight:700;margin-top:10px}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head>
+<body>
+<div class="c" id="c"><h1>📄 Loading your bill…</h1><p>Please wait a moment.</p></div>
+<script src="fb.js"></script>
+<script>
+(function(){
+ var c=document.getElementById('c'),id=(location.search.match(/[?&]i=([0-9a-f]{8,64})/)||[])[1];
+ function msg(t,s){c.innerHTML='<h1></h1><p></p>';c.querySelector('h1').textContent=t;c.querySelector('p').textContent=s||''}
+ if(!id){msg('Link not valid','Please ask for the bill again.');return}
+ FB.docGet('pdfshare',id).then(function(d){
+  if(!d||!d.b){msg('Bill not found','This link may be old. Please ask for a new one.');return}
+  var bin=atob(d.b),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  var url=URL.createObjectURL(new Blob([u],{type:'application/pdf'}));
+  c.innerHTML='<h1>📄 </h1><p>Your bill is ready.</p><a class="b" id="o" target="_blank" rel="noopener">Open PDF</a><a class="b" id="d" style="background:#16a34a">Download PDF</a>';
+  c.querySelector('h1').appendChild(document.createTextNode(d.no||'Bill'));
+  var o=document.getElementById('o'),dl=document.getElementById('d');o.href=url;dl.href=url;dl.download=d.name||'bill.pdf';
+ }).catch(function(){msg('Could not open','Check your internet and try again.')});
+})();
+</script>
+</body>
+</html>

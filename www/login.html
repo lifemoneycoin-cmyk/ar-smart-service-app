@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f3a7a">
+<link rel="icon" href="icon-192.png">
+<title>Log in – AR Smart Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--pri:#1a4fa0;--pri2:#0f3a7a;--bg:#eef2f8;--tx:#18222f;--mu:#667487;--bd:#d6deea;--bad:#c62828}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--tx);font:16px/1.45 Inter,"Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:0 0 env(safe-area-inset-bottom,0px);-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+.hero{background:linear-gradient(135deg,#1a4fa0,#0f3a7a);color:#fff;text-align:center;padding:calc(34px + env(safe-area-inset-top,0px)) 20px 70px;border-radius:0 0 28px 28px}
+.logo{width:88px;height:88px;border-radius:50%;background:#fff;padding:6px;margin:0 auto;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.logo img{width:100%;height:100%;border-radius:50%;object-fit:contain;display:block}
+.hero h1{margin:14px 0 2px;font-size:22px;letter-spacing:.3px}
+.hero p{margin:0;opacity:.85;font-size:14px}
+.wrap{max-width:420px;margin:-46px auto 0;padding:0 16px 28px}
+.card{background:#fff;border-radius:20px;padding:20px 18px;box-shadow:0 8px 24px rgba(20,40,80,.10)}
+.tabs{display:flex;background:#eef2f8;border-radius:14px;padding:4px;margin-bottom:16px}
+.tabs button{flex:1;border:0;background:none;padding:10px 6px;border-radius:11px;font:600 15px Inter,system-ui;color:var(--mu)}
+.tabs button.on{background:#fff;color:var(--pri2);box-shadow:0 1px 4px rgba(20,40,80,.12)}
+label{display:block;margin:0 0 12px}
+label>span{display:block;font-size:13px;color:var(--mu);margin:0 0 4px;font-weight:500}
+.inp{position:relative}
+input{font:inherit;color:inherit;width:100%;min-height:50px;padding:12px 14px;border:1.5px solid var(--bd);border-radius:13px;background:#fff;outline:0}
+input:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(26,79,160,.12)}
+.eye{position:absolute;right:6px;top:25px;transform:translateY(-50%);border:0;background:none;padding:8px;font:600 13px Inter,system-ui;color:var(--pri)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:700 16px Inter,system-ui;color:#fff;background:linear-gradient(135deg,#1a4fa0,#1f6fe0);margin-top:4px;box-shadow:0 4px 12px rgba(26,79,160,.25)}
+.btn:disabled{opacity:.6}
+.btn.g{background:#fff;color:#18222f;border:1.5px solid var(--bd);box-shadow:none;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px}
+.or{display:flex;align-items:center;gap:10px;color:var(--mu);font-size:13px;margin:14px 0 0}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--bd)}
+.links{display:flex;justify-content:space-between;margin-top:14px;font-size:14px}
+.links button{border:0;background:none;color:var(--pri);font:600 14px Inter,system-ui;padding:4px 0}
+#msg{margin:12px 0 0;font-size:14px;color:var(--bad);text-align:center;min-height:0}
+#msg.ok{color:#126b34}
+.foot{text-align:center;color:var(--mu);font-size:12.5px;margin-top:18px;line-height:1.5}
+.hide{display:none!important}
+.loading{text-align:center;padding:40px 0;color:var(--mu)}
+/* no-copy UI: text stays selectable only in fields */
+body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head>
+<body>
+<div class="hero">
+  <div class="logo"><img src="logo.png" alt="AR Smart Service logo"></div>
+  <h1>AR Smart Service</h1>
+  <p>Cooling beyond limits · AC, RO, fridge and more</p>
+</div>
+
+<div class="wrap">
+  <div class="card" id="boot"><div class="loading">⏳ Checking your login…</div></div>
+
+  <div class="card hide" id="box">
+    <div class="tabs">
+      <button type="button" id="tLogin" class="on">Log in</button>
+      <button type="button" id="tSign">Create account</button>
+    </div>
+
+    <form id="fLogin" novalidate>
+      <label><span>Email</span><input id="le" type="email" autocomplete="username" inputmode="email" required></label>
+      <label><span>Password</span>
+        <div class="inp"><input id="lp" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="lp">Show</button></div>
+      </label>
+      <button class="btn" id="bLogin" type="submit">Log in</button>
+    </form>
+
+    <form id="fSign" class="hide" novalidate>
+      <label><span>Your name</span><input id="sn" autocomplete="name" maxlength="80" required></label>
+      <label><span>Mobile number</span><input id="sm" type="tel" inputmode="tel" autocomplete="tel" maxlength="14" required></label>
+      <label><span>Email</span><input id="se" type="email" autocomplete="email" required></label>
+      <label><span>Password (6 or more characters)</span>
+        <div class="inp"><input id="sp" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="sp">Show</button></div>
+      </label>
+      <button class="btn" id="bSign" type="submit">Create account</button>
+    </form>
+
+    <div class="or">or</div>
+    <button class="btn g" id="bGoogle" type="button">
+      <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6C12.3 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.5 7l7 5.4c4.1-3.8 6.5-9.4 6.5-16.9z"/><path fill="#FBBC05" d="M10.4 28.8c-.5-1.4-.8-2.9-.8-4.8s.3-3.4.8-4.8l-7.8-6C.9 16.5 0 20.1 0 24s.9 7.5 2.6 10.8l7.8-6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7-5.4c-2.1 1.4-4.8 2.3-8.9 2.3-6.3 0-11.7-4-13.6-9.7l-7.8 6C6.5 42.6 14.6 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="links" id="linkRow">
+      <button type="button" id="bForgot">Forgot password?</button>
+      <span></span>
+    </div>
+    <p id="msg"></p>
+  </div>
+
+  <p class="foot">Admin, technician and customer – all log in from this one page. Your app opens by your account type.<br>Need help? Call <a href="tel:9922452074" style="color:var(--pri);text-decoration:none;font-weight:600">9922452074</a></p>
+</div>
+
+<script src="fb.js"></script>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const P={};try{new URLSearchParams(location.search).forEach((v,k)=>P[k]=v)}catch(e){}
+const msg=(t,ok)=>{const m=$('#msg');m.textContent=t||'';m.className=ok?'ok':''};
+const busy=(b,on,txt)=>{b.disabled=on;if(txt)b.dataset.t=b.dataset.t||b.textContent;b.textContent=on?'⏳ Please wait…':(b.dataset.t||txt)};
+const ERR={'auth/invalid-credential':'Email or password is wrong. If you do not have an account, press "Create account".','auth/wrong-password':'Password is wrong.','auth/user-not-found':'No account with this email. Press "Create account".','auth/invalid-email':'Email is not correct.','auth/email-already-in-use':'This email already has an account. Please log in.','auth/weak-password':'Password must be at least 6 characters.','auth/network-request-failed':'Check your internet connection.','auth/too-many-requests':'Too many tries. Wait a few minutes and try again.','auth/unauthorized-domain':'Google login is not available right now. Use email and password.','auth/popup-closed-by-user':''};
+const errText=e=>{const c=(e&&e.code)||'';return c in ERR?ERR[c]:('Could not log in ('+(c||'try again')+').')};
+
+function showTab(sign){
+  $('#tLogin').classList.toggle('on',!sign);$('#tSign').classList.toggle('on',sign);
+  $('#fLogin').classList.toggle('hide',sign);$('#fSign').classList.toggle('hide',!sign);
+  $('#bForgot').style.visibility=sign?'hidden':'visible';msg('');
+}
+$('#tLogin').onclick=()=>showTab(false);
+$('#tSign').onclick=()=>showTab(true);
+document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);const show=i.type=='password';i.type=show?'text':'password';b.textContent=show?'Hide':'Show'});
+
+// Send the user to the right app by account type
+async function goByRole(u){
+  msg('Opening your account…',true);
+  let r=null,err=null;
+  try{r=await FB.role(u)}catch(e){err=e}
+  if(err){
+    // लुकअप फेल: टेक्नीशियन को कस्टमर में न बदलें; असली error दिखाएँ
+    let c='';try{c=localStorage.getItem('arrole')||''}catch(x){}
+    let cu='';try{cu=localStorage.getItem('aruid')||''}catch(x){}
+    if((c=='tech'||c=='admin')&&cu&&cu==u.uid){r=c}
+    else{msg('Account check failed ('+(err&&(err.code||err.message)||'unknown')+'). Internet check karein, phir dobara login karein. Agar baar baar aaye to Firebase rules deploy check karein.');return}
+  }
+  else{try{localStorage.setItem('arrole',r=='admin'?'admin':r=='tech'?'tech':'customer');localStorage.setItem('aruid',u.uid)}catch(e){}}
+  if(r=='admin')location.replace('index.html');
+  else if(r=='tech')location.replace('tech.html');
+  else location.replace('customer.html');
+}
+
+let shown=false;
+function showForm(){if(shown)return;shown=true;$('#boot').classList.add('hide');$('#box').classList.remove('hide');if(P.new)showTab(true)}
+setTimeout(showForm,6000);
+FB.onAuth(u=>{if(u){goByRole(u)}else{showForm()}});
+
+$('#fLogin').onsubmit=async e=>{e.preventDefault();
+  const em=$('#le').value.trim(),pw=$('#lp').value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return msg('Please enter a correct email.');
+  if(!pw)return msg('Please enter your password.');
+  const b=$('#bLogin');busy(b,true,'Log in');
+  try{await FB.login(em,pw)}catch(er){busy(b,false,'Log in');msg(errText(er))}
+};
+
+$('#fSign').onsubmit=async e=>{e.preventDefault();
+  const nm=$('#sn').value.trim(),mb=$('#sm').value.replace(/\D/g,'').slice(-10),em=$('#se').value.trim(),pw=$('#sp').value;
+  if(!nm)return msg('Please enter your name.');
+  if(mb.length!=10)return msg('Please enter a correct 10-digit mobile number.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return msg('Please enter a correct email.');
+  if(pw.length<6)return msg('Password must be at least 6 characters.');
+  const b=$('#bSign');busy(b,true,'Create account');
+  try{const r=await FB.signup(em,pw,nm);try{await FB.setProfile(r.user.uid,{name:nm,mobile:mb,email:em})}catch(x){}}
+  catch(er){busy(b,false,'Create account');msg(errText(er))}
+};
+
+$('#bGoogle').onclick=async()=>{const b=$('#bGoogle');b.disabled=true;try{await FB.google()}catch(er){b.disabled=false;const t=errText(er);if(t)msg(t)}};
+
+$('#bForgot').onclick=async()=>{const em=$('#le').value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return msg('First type your email above, then press Forgot password.');
+  try{await FB.reset(em);msg('Reset link sent to '+em+'. Check Inbox, Spam and Promotions.',true)}catch(er){msg(errText(er))}};
+</script>
+
+<script>document.addEventListener('contextmenu',function(e){if(!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});document.addEventListener('copy',function(e){if(!e.target.closest||!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});</script></body></html>

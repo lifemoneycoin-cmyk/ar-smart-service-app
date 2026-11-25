@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f3a7a">
+<link rel="icon" href="icon-192.png">
+<title>AR Smart Service – Shop Admin</title>
+<style>
+:root{--pri:#0f4bc4;--pri2:#0a2f7a;--bg:#eef3fb;--tx:#18222f;--mu:#5f6d83;--bd:#d9e1ef;--ok:#1d9e4a;--bad:#d93025}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+body{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+.w{max-width:640px;margin:0 auto}
+.top{background:linear-gradient(135deg,#0a2f7a,#0f4bc4 58%,#1e88ff 130%);color:#fff;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 14px;border-radius:0 0 22px 22px}
+.top h1{margin:0;font-size:20px}.top p{margin:2px 0 0;font-size:12.5px;opacity:.9}
+.tabs{display:flex;gap:8px;padding:12px 14px 0}.tabs button{flex:1;border:1.5px solid var(--bd);background:#fff;border-radius:14px;padding:10px 4px;font:inherit;font-weight:700;color:var(--pri2);position:relative}.tabs button.on{background:var(--pri);border-color:var(--pri);color:#fff}.tabs b{background:#d93025;color:#fff;border-radius:10px;font-size:11px;padding:1px 6px;margin-left:4px}
+.pad{padding:12px 14px}
+.card{background:#fff;border:1px solid #e3e9f4;border-radius:16px;padding:12px;margin-bottom:10px;box-shadow:0 2px 8px rgba(15,50,120,.06)}
+.chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chips button{flex:none;border:1.5px solid var(--bd);background:#fff;border-radius:16px;padding:6px 12px;font:inherit;font-size:13.5px;color:var(--pri2)}.chips button.on{background:#e3edff;border-color:var(--pri);font-weight:700}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#0f4bc4,#1e88ff);color:#fff;font:inherit;font-weight:700;padding:11px;text-align:center;text-decoration:none;margin-top:8px}.btn.sec{background:#e3edff;color:var(--pri2)}.btn.rd{background:#fde8e6;color:#a5201a}.btn.gr{background:#d7f3e0;color:#0b5a28}
+.row{display:flex;gap:8px}.row>*{flex:1}
+label.f{display:block;margin:0 0 10px}label.f span{display:block;font-size:13px;color:var(--mu);margin-bottom:4px}
+input,textarea,select{width:100%;font:inherit;border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;background:#fff;outline:0}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:3px 0;font-size:14.5px}.kv.t{font-weight:800}
+.note{font-size:13px;color:var(--mu)}.warn{background:#fff3cd;border-radius:10px;padding:6px 10px;font-size:13px;color:#7a5b00;margin:6px 0}
+.st{display:inline-block;border-radius:10px;padding:2px 10px;font-size:12.5px;font-weight:700}
+.pi{display:flex;gap:10px;align-items:center}.pi .t{width:58px;height:58px;border-radius:12px;background:#eef3fb center/cover;flex:none}.pi .m{flex:1;font-size:14.5px}.pi .m small{display:block;color:var(--mu)}
+.sh{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}.sh.on{display:flex}
+.sh .in{background:#f6f9ff;width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 14px calc(22px + env(safe-area-inset-bottom,0px))}
+.sh h3{margin:0 0 10px;display:flex;justify-content:space-between;align-items:center}.sh h3 button{border:0;background:#e3e9f4;border-radius:50%;width:34px;height:34px;font-size:18px}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#18222f;color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;display:none;z-index:60}
+</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head><body><div class="w">
+<div class="top"><h1>🛒 Shop – Admin</h1><p>Products, orders and delivery</p></div>
+<div class="tabs"><button data-t="o" class="on">📦 Orders<b id="nb" style="display:none"></b></button><button data-t="p">🏷️ Product</button><button data-t="s">⚙️ Settings</button></div>
+<div class="pad" id="main"></div></div>
+<div class="sh" id="sh"><div class="in" id="shin"></div></div><div class="toast" id="toast"></div>
+<nav id="nv"></nav>
+<script src="fb.js"></script><script src="nav.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+Math.round(+n||0).toLocaleString('en-IN');
+ARNAV.render($('#nv'),'home','admin');
+let TAB='o',OF='new',P=[],O=[],SHOP={charge:0,freeAbove:0,cod:true,upiOn:true,minOrder:0,notice:''},ADM=false,CFG={};
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(window._tt);window._tt=setTimeout(()=>t.style.display='none',2400)}
+const STX={new:['New','#fff3cd','#7a5b00'],confirmed:['Confirm','#d7ecff','#0a4a8a'],packed:['Packed','#e5dcff','#4a2c9a'],shipped:['Sent','#d4f5df','#146b35'],delivered:['Reached','#c6f0d2','#0b5a28'],cancelled:['Cancelled','#fde0dd','#a5201a']};
+const pById=id=>P.find(p=>p._id==id);
+function fdt(ms){const d=new Date(ms||0);return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}
+function draw(){
+ const nn=O.filter(o=>o.status=='new').length;const nb=$('#nb');nb.style.display=nn?'inline':'none';nb.textContent=nn;
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==TAB));
+ if(!ADM){$('#main').innerHTML='<div class="card">This page is for admin only. Log in with the admin email.<a class="btn" href="index.html">Open admin app</a></div>';return}
+ $('#main').innerHTML=TAB=='o'?vOrders():TAB=='p'?vProducts():vSettings();
+}
+/* ---------- Orders ---------- */
+function vOrders(){
+ const keys=['new','confirmed','packed','shipped','delivered','cancelled','all'],lb={all:'All'};
+ const cnt=k=>k=='all'?O.length:O.filter(o=>o.status==k).length;
+ const l=O.filter(o=>OF=='all'||o.status==OF).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+ return `<div class="chips">${keys.map(k=>`<button data-of="${k}" class="${OF==k?'on':''}">${k=='all'?'All':STX[k][0]} (${cnt(k)})</button>`).join('')}</div>`+(l.length?l.map(orderCard).join(''):'<div class="card note">No orders in this list.</div>')}
+function mismatch(o){let m=[];let sum=0;(o.items||[]).forEach(i=>{const p=pById(i.id);sum+=i.price*i.qty;if(!p)m.push(i.name+': product no longer in list');else if(+p.price!==+i.price)m.push(i.name+': in order '+inr(i.price)+', price now '+inr(p.price))});if(Math.round(sum+(+o.ship||0))!==Math.round(o.total))m.push('Total does not match');return m}
+function orderCard(o){
+ const s=STX[o.status]||STX.new,mm=o.status=='new'?mismatch(o):[],tel=String(o.mobile||'').replace(/\D/g,'').slice(-10);
+ const acts=[];
+ if(o.status=='new')acts.push(['confirmed','✅ Confirm (stock will be reduced)','gr']);
+ if(o.status=='confirmed')acts.push(['packed','📦 Packed','']);
+ if(o.status=='packed'||o.status=='confirmed')acts.push(['ship','🚚 Shipped – enter AWB','']);
+ if(o.status=='shipped')acts.push(['delivered','🏁 Delivered','gr']);
+ if(o.status!='cancelled'&&o.status!='delivered')acts.push(['cancelled','❌ Cancel','rd']);
+ return `<div class="card"><div class="kv"><b>${esc(o.no||o._id)}</b><span class="st" style="background:${s[1]};color:${s[2]}">${s[0]}</span></div><div class="note">${fdt(o.createdAt)}</div>
+ <div class="kv" style="margin-top:6px"><span>👤 ${esc(o.name)}</span><span><a href="tel:${tel}">📞 ${tel}</a> • <a target="_blank" rel="noopener" href="https://wa.me/91${tel}">WhatsApp</a></span></div>
+ <div class="note" style="color:var(--tx)">📍 ${esc(o.addr)} – ${esc(o.pin)}</div>${o.note?`<div class="note">📝 ${esc(o.note)}</div>`:''}
+ <div style="margin:8px 0;border-top:1px dashed #e3e9f4;padding-top:6px">${(o.items||[]).map(i=>`<div class="kv"><span>${esc(i.name)} × ${i.qty}</span><span>${inr(i.price*i.qty)}</span></div>`).join('')}<div class="kv"><span>Delivery</span><span>${o.ship?inr(o.ship):'Free'}</span></div><div class="kv t"><span>Total (${o.pay=='cod'?'COD – to be collected on delivery':'UPI'})</span><span>${inr(o.total)}</span></div></div>
+ ${o.pay=='upi'?`<div class="kv"><span>UTR: <b>${esc(o.utr||'—')}</b></span><button class="st" data-pok="${o._id}" style="border:0;background:${o.payOk?'#c6f0d2':'#fff3cd'}">${o.payOk?'✅ Payment received':'⏳ Received? Press'}</button></div>`:''}
+ ${mm.length?`<div class="warn">⚠️ Check the price:<br>${mm.map(esc).join('<br>')}</div>`:''}
+ ${o.awb?`<div class="note">🚚 ${esc(o.courier||'')} • AWB <b>${esc(o.awb)}</b> ${o.trackUrl?`• <a target="_blank" rel="noopener" href="${esc(o.trackUrl)}">Track</a>`:''}</div>`:''}
+ ${acts.map(a=>`<button class="btn ${a[2]}" data-oa="${a[0]}" data-oid="${o._id}">${a[1]}</button>`).join('')}
+ <button class="btn sec" data-onote="${o._id}">💬 Note / message to customer</button></div>`}
+async function setOrder(id,patch,toastMsg){try{await FB.docSet('orders',id,patch,true);toast(toastMsg||'✅ Saved')}catch(e){toast('Not saved – check Admin login / Rules v7')}}
+async function stockAdj(o,sign){for(const i of o.items||[]){const p=pById(i.id);if(p&&p.stock!=null&&p.stock!==''){try{await FB.docSet('products',p._id,{stock:Math.max(0,(+p.stock||0)+sign*i.qty)},true)}catch(e){}}}}
+async function orderAct(id,a){
+ const o=O.find(x=>x._id==id);if(!o)return;
+ if(a=='confirmed'){if(o.pay=='upi'&&!o.payOk&&!confirm('UPI payment now "Received" Not marked. Still confirm?'))return;
+  if(!o.stockCut){await stockAdj(o,-1)}await setOrder(id,{status:'confirmed',stockCut:true},'✅ Confirmed – stock reduced')}
+ else if(a=='packed')await setOrder(id,{status:'packed'});
+ else if(a=='ship')shipSheet(o);
+ else if(a=='delivered')await setOrder(id,{status:'delivered',payOk:o.pay=='cod'?true:o.payOk});
+ else if(a=='cancelled'){if(!confirm('Cancel this order?'))return;if(o.stockCut)await stockAdj(o,1);await setOrder(id,{status:'cancelled',stockCut:false},'Cancelled')}}
+function shipSheet(o){open(`<h3>🚚 Shipment details<button data-x>✕</button></h3><label class="f"><span>Courier name</span><input id="s_c" value="${esc(o.courier||'')}" placeholder="e.g. Delhivery, Bluedart"></label><label class="f"><span>AWB / tracking number *</span><input id="s_a" value="${esc(o.awb||'')}"></label><label class="f"><span>Tracking link (optional)</span><input id="s_u" value="${esc(o.trackUrl||'')}" placeholder="https://…"></label><div class="note">Automatic AWB booking through Shiprocket will be added in the next step. For now, enter the AWB created in the Shiprocket panel here.</div><button class="btn" data-shipsave="${o._id}">🚚 Shipped – save</button>`)}
+/* ---------- Product ---------- */
+function vProducts(){const l=[...P].sort((a,b)=>(a.sort||0)-(b.sort||0)||String(a.name).localeCompare(b.name));
+ return `<button class="btn" data-pe="new" style="margin-top:0">➕ Add new product</button><div style="height:10px"></div>`+(l.length?l.map(p=>`<div class="card"><div class="pi"><div class="t" style="${p.img?`background-image:url(${p.img})`:''}"></div><div class="m"><b>${esc(p.name)}</b><small>${inr(p.price)}${p.mrp>p.price?' (MRP '+inr(p.mrp)+')':''} • Stock ${p.stock==null||p.stock===''?'∞':p.stock}${p.cat?' • '+esc(p.cat):''}</small><small>${p.on===false?'🚫 Hidden':'✅ Showing'}</small></div><button class="st" data-pe="${p._id}" style="border:0;background:#e3edff;color:#0a2f7a;padding:8px 14px">✏️</button></div></div>`).join(''):'<div class="card note">No products yet. Add one from above.</div>')}
+function prodSheet(id){const p=id=='new'?{on:true}:pById(id);if(!p)return;window._pimg=p.img||'';
+ const cats=[...new Set(P.map(x=>x.cat).filter(Boolean))];
+ open(`<h3>${id=='new'?'New product':'Change product'}<button data-x>✕</button></h3><div id="pimgv" style="width:100%;aspect-ratio:16/10;border-radius:14px;background:#e3edff center/contain no-repeat ${p.img?`url(${p.img})`:''};margin-bottom:8px"></div><label class="btn sec" style="cursor:pointer;margin-top:0">📷 Choose photo<input type="file" accept="image/*" id="pimg" hidden></label><div style="height:10px"></div>
+ <label class="f"><span>Name *</span><input id="p_n" value="${esc(p.name||'')}" maxlength="100"></label><div class="row"><label class="f"><span>Selling price ₹ *</span><input id="p_p" type="number" inputmode="decimal" value="${p.price||''}"></label><label class="f"><span>MRP ₹ (shown struck through)</span><input id="p_m" type="number" inputmode="decimal" value="${p.mrp||''}"></label></div>
+ <div class="row"><label class="f"><span>Category</span><input id="p_c" list="cl" value="${esc(p.cat||'')}" maxlength="30" placeholder="e.g. AC parts"><datalist id="cl">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></label><label class="f"><span>Stock (blank = unlimited)</span><input id="p_s" type="number" inputmode="numeric" value="${p.stock==null?'':p.stock}"></label></div>
+ <label class="f"><span>Unit (how to write on bill)</span><select id="p_u">${[["pcs","Piece (Pc)"],["kg","Kg – e.g. gas"],["bag","Bag"],["ltr","Litre (Ltr)"],["nos","Count (Nos)"],["box","Box"],["mtr","Metre (Mtr)"],["roll","Roll"]].map(([v,l])=>`<option value="${v}" ${(p.unit||"pcs")==v?"selected":""}>${l}</option>`).join("")}</select></label>
+ <label class="f"><span>Description</span><textarea id="p_d" rows="3" maxlength="600">${esc(p.desc||'')}</textarea></label>
+ <label class="f"><span>Show in shop?</span><select id="p_o"><option value="1" ${p.on!==false?'selected':''}>Yes, it is showing</option><option value="0" ${p.on===false?'selected':''}>No, hide it</option></select></label>
+ <button class="btn" data-psave="${id}">💾 Save</button>${id!='new'?`<button class="btn rd" data-pdel="${id}">🗑️ Delete product</button>`:''}`);
+ $('#pimg').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=await shrink(f,640);if(d.length>180000)return toast('Photo is heavy, choose a smaller one');window._pimg=d;$('#pimgv').style.backgroundImage=`url(${d})`}catch(x){toast('Photo did not open')}}}
+function shrink(file,max){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.72))};im.onerror=rej;im.src=u})}
+async function saveProd(id){const n=$('#p_n').value.trim(),pr=parseFloat($('#p_p').value);if(!n)return toast('Enter name');if(!(pr>=0))return toast('Enter price');
+ const st=$('#p_s').value.trim();const d={name:n,unit:$('#p_u')?$('#p_u').value:'pcs',price:pr,mrp:parseFloat($('#p_m').value)||0,cat:$('#p_c').value.trim(),desc:$('#p_d').value.trim(),on:$('#p_o').value=='1',stock:st===''?null:Math.max(0,parseInt(st)||0),img:window._pimg||''};
+ try{await FB.docSet('products',id=='new'?FB.newId():id,d,id!='new');close();toast('✅ Product saved')}catch(e){toast('Not saved – publish Rules v7')}}
+/* ---------- Settings ---------- */
+function vSettings(){const S=SHOP;return `<div class="card"><b>Delivery and payment</b><div style="height:8px"></div><div class="row"><label class="f"><span>Delivery charge ₹</span><input id="s_ch" type="number" inputmode="decimal" value="${S.charge||0}"></label><label class="f"><span>Free above this ₹ amount (0 = never)</span><input id="s_fr" type="number" inputmode="decimal" value="${S.freeAbove||0}"></label></div><label class="f"><span>Minimum order ₹ (0 = none)</span><input id="s_mn" type="number" inputmode="decimal" value="${S.minOrder||0}"></label>
+ <label class="f"><span>COD (payment on delivery)</span><select id="s_cod"><option value="1" ${S.cod!==false?'selected':''}>On</option><option value="0" ${S.cod===false?'selected':''}>Closed</option></select></label>
+ <label class="f"><span>UPI payment (with UTR)</span><select id="s_upi"><option value="1" ${S.upiOn!==false?'selected':''}>On</option><option value="0" ${S.upiOn===false?'selected':''}>Closed</option></select></label><div class="note">The UPI ID entered in Admin App → Settings → Error codes is used${CFG.upi?': <b>'+esc(CFG.upi)+'</b>':' (currently empty)'}.</div>
+ <label class="f" style="margin-top:10px"><span>Note at shop (optional)</span><input id="s_nt" value="${esc(S.notice||'')}" maxlength="150" placeholder="e.g. 10% off on Diwali"></label><button class="btn" data-ssave>💾 Save</button></div>
+ <div class="card"><b>Shop link</b><div class="note" style="margin:6px 0">Send this link to the customer:</div><div style="word-break:break-all;font-size:14px">${esc(location.origin+location.pathname.replace('shop-admin.html','shop.html'))}</div><a class="btn sec" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent('Our shop: '+location.origin+location.pathname.replace('shop-admin.html','shop.html'))}">📤 Send on WhatsApp</a></div>`}
+async function saveShop(){const d={charge:+$('#s_ch').value||0,freeAbove:+$('#s_fr').value||0,minOrder:+$('#s_mn').value||0,cod:$('#s_cod').value=='1',upiOn:$('#s_upi').value=='1',notice:$('#s_nt').value.trim()};try{await FB.docSet('config','shop',d);Object.assign(SHOP,d);toast('✅ Settings saved')}catch(e){toast('Not saved – publish Rules v7')}}
+/* ---------- Sheet + Event ---------- */
+function open(h){$('#shin').innerHTML=h;$('#sh').classList.add('on')}function close(){$('#sh').classList.remove('on')}
+$('#sh').addEventListener('click',e=>{if(e.target.id=='sh')close()});
+document.addEventListener('click',async e=>{const t=e.target,g=a=>t.closest('['+a+']');let x;
+ if(x=g('data-t')){TAB=x.dataset.t;draw();return}
+ if(x=g('data-of')){OF=x.dataset.of;draw();return}
+ if(x=g('data-oa')){orderAct(x.dataset.oid,x.dataset.oa);return}
+ if(x=g('data-pok')){const o=O.find(z=>z._id==x.dataset.pok);if(o)setOrder(o._id,{payOk:!o.payOk});return}
+ if(x=g('data-onote')){const o=O.find(z=>z._id==x.dataset.onote);const v=prompt('Message shown to customer:',o&&o.adminNote||'');if(v!==null)setOrder(x.dataset.onote,{adminNote:v.slice(0,200)});return}
+ if(x=g('data-shipsave')){const a=$('#s_a').value.trim();if(!a)return toast('Enter AWB number');let u=$('#s_u').value.trim();if(u&&!/^https:\/\//.test(u))return toast('Link must start with https://');await setOrder(x.dataset.shipsave,{status:'shipped',awb:a,courier:$('#s_c').value.trim(),trackUrl:u},'🚚 Marked as shipped');close();return}
+ if(x=g('data-pe')){prodSheet(x.dataset.pe);return}
+ if(x=g('data-psave')){saveProd(x.dataset.psave);return}
+ if(x=g('data-pdel')){if(confirm('Delete this product?')){try{await FB.docSet('products',x.dataset.pdel,{on:false,deleted:true},true);}catch(e){}try{const o=await FB.docDelete?FB.docDelete('products',x.dataset.pdel):null}catch(e){}close();toast('Removed')}return}
+ if(g('data-ssave')){saveShop();return}
+ if(g('data-x')){close();return}});
+FB.getConfig().then(c=>{if(c){CFG=c;if(TAB=='s')draw()}}).catch(()=>{});
+FB.onAuth(async u=>{ADM=false;if(!u){location.replace('login.html');return}try{const r=await FB.role(u);ADM=r=='admin'}catch(e){}draw();if(!ADM)return;
+ FB.docGet('config','shop').then(s=>{if(s)Object.assign(SHOP,s);if(TAB=='s')draw()}).catch(()=>{});
+ FB.watch('products',null,null,l=>{P=l.filter(x=>!x.deleted);draw()});
+ FB.watch('orders',null,null,l=>{O=l;if(TAB=='o')draw();else draw()})});
+draw();
+</script></body></html>

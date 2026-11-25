@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="hi" translate="no" class="notranslate"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f3a7a">
+<link rel="icon" href="icon-192.png">
+<title>AR Smart Service – Tools</title>
+<style>
+:root{--pri:#1a4fa0;--pri2:#0f3a7a;--bg:#eef3fa;--tx:#18222f;--mu:#5f6d83;--bd:#dbe3f0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 Roboto,"Noto Sans","Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",sans-serif}
+body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.w{max-width:620px;margin:0 auto}
+.top{background:linear-gradient(135deg,#0f3a7a,#1f6fe0);color:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 16px;border-radius:0 0 22px 22px;display:flex;align-items:center;gap:12px}
+.bk{background:rgba(255,255,255,.2);border:0;color:#fff;width:40px;height:40px;border-radius:13px;font-size:18px;flex:none}
+.top h1{margin:0;font-size:18px;font-weight:800}.top p{margin:1px 0 0;font-size:12.5px;opacity:.9}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 0}
+.tabs button{height:46px;border:0;border-radius:15px;background:#fff;font:inherit;font-weight:800;color:var(--pri2);box-shadow:0 4px 10px -6px rgba(15,58,122,.4)}
+.tabs button.on{background:linear-gradient(135deg,#1a4fa0,#2563eb);color:#fff}
+.pad{padding:12px 14px}
+.card{background:#fff;border:1px solid #e6ecf6;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 6px 16px -12px rgba(20,40,80,.3)}
+.card h3{margin:0 0 10px;font-size:15px;font-weight:800;color:var(--pri2)}
+label.f{display:block;margin:0 0 10px}label.f span{display:block;font-size:12.5px;font-weight:600;color:#475569;margin-bottom:4px}
+input,select{width:100%;font:inherit;font-size:15px;height:44px;border:1.5px solid var(--bd);border-radius:12px;padding:8px 12px;background:#fbfdff;outline:0;color:var(--tx)}
+input:focus,select:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.15);background:#fff}
+select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231a4fa0' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:34px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.seg button,.chip{border:0;border-radius:999px;padding:0 13px;height:36px;font:inherit;font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;opacity:.55;transition:opacity .15s,transform .1s}
+.seg button.on,.chip.on{opacity:1}
+.seg button:active,.chip:active,.btn:active{transform:scale(.97)}
+.seg button{background:#64748b}
+.seg button.on{background:linear-gradient(135deg,#1a4fa0,#2563eb)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.btn{width:100%;height:50px;border:0;border-radius:16px;font:inherit;font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,#16a34a,#15803d);box-shadow:0 10px 18px -12px rgba(21,128,61,.9)}
+.btn.blue{background:linear-gradient(135deg,#1a4fa0,#2563eb);box-shadow:0 10px 18px -12px rgba(26,79,160,.9)}
+.gnote{font-size:13px;color:var(--mu);margin:2px 0 8px;min-height:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.g3 div{border-radius:16px;padding:10px 6px;text-align:center;color:#fff;box-shadow:0 8px 14px -10px rgba(0,0,0,.5)}
+.g3 b{display:block;font-size:14px;font-weight:800}.g3 span{font-size:11px;opacity:.95}
+.t1{background:linear-gradient(135deg,#a855f7,#7e22ce)}.t2{background:linear-gradient(135deg,#22c55e,#15803d)}.t3{background:linear-gradient(135deg,#fb923c,#c2410c)}
+.opn{font-size:12.5px;color:var(--mu);margin-top:8px}
+.ptout{font-size:19px;font-weight:800;color:#c2410c;display:flex;align-items:flex-end;padding-bottom:6px;min-height:44px}
+.tbl{max-height:380px;overflow:auto;border-radius:14px;border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{padding:7px 4px;text-align:center}
+th{background:#1a4fa0;color:#fff;position:sticky;top:0;font-weight:700}
+td{border-bottom:1px solid #eef2f8}
+tr.hl td{outline:2px solid #facc15;outline-offset:-2px;font-weight:800}
+.kv{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:14px;margin-bottom:8px;color:#fff;font-size:14px}
+.kv span{opacity:.95}.kv b{font-size:14.5px}
+.b1{background:linear-gradient(135deg,#0ea5e9,#0369a1)}.b2{background:linear-gradient(135deg,#22c55e,#15803d)}.b3{background:linear-gradient(135deg,#a855f7,#7e22ce)}.b4{background:linear-gradient(135deg,#f59e0b,#b45309)}.b5{background:linear-gradient(135deg,#ef4444,#b91c1c)}
+.rhead{background:linear-gradient(135deg,#0f3a7a,#2563eb);color:#fff;border-radius:20px;padding:18px;text-align:center;margin-bottom:12px;font-size:19px;font-weight:800}
+.rhead small{display:block;font-size:13px;opacity:.9;font-weight:600}
+.rbtu{font-size:13px;font-weight:600;opacity:.92;margin-top:6px}
+.rhead.warn{background:linear-gradient(135deg,#f59e0b,#b45309)}
+.warnbox{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:14px;padding:10px 12px;font-size:13px;margin-bottom:10px}
+.tipbox{background:#eef4ff;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:13px}.tipbox b{color:var(--pri2)}.tipbox small{display:block;color:var(--mu)}
+#resV{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;flex-direction:column;overflow:auto}
+#resV.on{display:flex}
+#resV .top{position:sticky;top:0}
+#resV .pad{padding:14px;max-width:620px;width:100%;margin:0 auto}
+.foot{font-size:12px;color:var(--mu);margin:14px 4px}
+
+/* gas picker + popup (33.1.0.40) */
+.gpick .chips button{min-width:72px;padding:14px 10px;font-size:16px;font-weight:800}
+body:not(.embed) .gdetail{display:none}
+body.embed .top,body.embed .tabs,body.embed #nv{display:none!important}
+body.embed:not(.picker) .gpick{display:none!important}
+body.embed:not(.acmode) #p1{display:none!important}
+body.acmode #p2{display:none!important}
+body.embed .gdetail{display:block!important}
+body.embed .w{padding-top:8px}
+.gpop{position:fixed;inset:0;z-index:9998;background:rgba(10,20,40,.55);display:flex;align-items:center;justify-content:center;padding:12px}
+.gpop-box{width:min(100%,560px);height:min(92vh,820px);background:var(--bg,#f2f5fb);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.gpop-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#0A2A6A;color:#fff;font-weight:800;font-size:17px}
+.gpop-x{background:#fff;color:#0A2A6A;border:0;border-radius:10px;width:38px;height:38px;font-size:18px;font-weight:800;cursor:pointer}
+.gpop iframe{flex:1;width:100%;border:0;background:var(--bg,#f2f5fb)}
+</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
+<script src="app-bridge.js"></script>
+</head><body><div class="w">
+<div class="top"><button class="bk" onclick="bk()" aria-label="Back">←</button><div><h1>🧰 Tools</h1><p>AC tonnage calculator • Gas pressure chart</p></div></div>
+<div class="tabs"><button id="t1" class="on">🧮 AC tonnage</button><button id="t2">⛽ Gas pressure</button></div>
+
+<div class="pad" id="p1">
+ <div class="card"><h3>🏠 Room</h3>
+  <div class="seg" id="unit"><button data-v="ft" class="on">Feet</button><button data-v="m">Meters</button></div>
+  <div class="row3"><label class="f"><span>Length</span><input id="L" type="number" inputmode="decimal" value="12"></label><label class="f"><span>Width</span><input id="W" type="number" inputmode="decimal" value="12"></label><label class="f"><span>Height</span><input id="H" type="number" inputmode="decimal" value="10"></label></div>
+  <label class="f"><span>Room type</span><select id="kind"><option value="0">Bedroom</option><option value="0">Hall / office / shop (seating)</option><option value="4000">Near kitchen / restaurant</option><option value="2500">Shop (glass / crowd)</option></select></label>
+  <label class="f"><span>Floor</span><select id="fl"><option value="1">Middle floor</option><option value="1.1">Ground floor</option><option value="1.2">Top floor (under roof)</option></select></label>
+  <label class="f"><span>Sun</span><select id="sun"><option value="1">Shade / low sun</option><option value="1.08">Afternoon sun on window</option><option value="1.15">West wall, strong sun</option></select></label>
+  <div class="row"><label class="f"><span>People living here</span><input id="ppl" type="number" inputmode="numeric" value="2"></label><label class="f"><span>TV / heater etc.</span><input id="app" type="number" inputmode="numeric" value="1"></label></div>
+ </div>
+ <button class="btn" id="calcBtn">🧮 Calculate</button>
+ <p class="foot">Sirf andaze ke liye. Final size site survey karke hi lein.</p>
+</div>
+
+<div class="pad hide" id="p2" style="display:none">
+ <div class="card gpick"><h3>⛽ Gas chunein</h3><p class="mu">Gas par tap karein. Uska pressure page popup mein khulega.</p><div class="chips" id="gases"></div></div>
+ <div class="card gdetail"><div class="gnote" id="gnote"></div>
+  <div class="row"><label class="f"><span>Bahar ka temp (°C)</span><input id="amb" type="number" inputmode="decimal" value="35"></label><label class="f"><span>Evaporator temp (°C)</span><input id="evp" type="number" inputmode="decimal" value="5"></label></div>
+  <div class="seg" id="pu"><button data-v="psi" class="on">PSI</button><button data-v="bar">bar</button><button data-v="kg">kg/cm²</button></div>
+ </div>
+ <div class="card gdetail"><h3>Normal pressure</h3>
+  <div class="g3" id="ops"></div>
+  <div class="opn" id="opn"></div>
+ </div>
+ <div class="card gdetail"><h3>Pressure → temperature</h3>
+  <div class="row"><label class="f"><span>Gauge pressure (<em id="pul" style="font-style:normal">PSI</em>)</span><input id="pin" type="number" inputmode="decimal" placeholder="e.g. 70"></label><div class="ptout" id="pout">—</div></div>
+ </div>
+ <div class="card gdetail"><h3>PT chart</h3><div class="tbl"><table><thead><tr><th>°C</th><th>°F</th><th id="h1">PSI</th><th>bar</th></tr></thead><tbody id="tb"></tbody></table></div>
+  <div class="opn">Estimate hai. Company ke chart se bhi match karein.</div></div>
+</div>
+</div>
+
+<div id="resV"><div class="top"><button class="bk" onclick="closeRes()" aria-label="Back">←</button><div><h1>📊 Result</h1><p>AC tonnage hisaab</p></div></div>
+ <div class="pad"><div id="resBody"></div><button class="btn blue" style="margin-top:12px" onclick="closeRes()">✏️ Details badlein</button></div>
+</div>
+<nav id="nv"></nav>
+<script src="fb.js"></script><script src="nav.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function bk(){if(history.length>1)history.back();else location.href='index.html'}
+
+const tc=c=>{const t=Math.max(0,Math.min(1,(c+40)/110));const h=Math.round(220-220*t);return `hsl(${h},70%,48%)`};
+const GCOL={R22:'#0ea5e9',R32:'#22c55e',R410A:'#6366f1',R407C:'#f59e0b',R134a:'#14b8a6',R404A:'#ec4899',R290:'#ef4444',R600a:'#8b5cf6'};
+function showRes(r){
+ const box=$('#resBody');
+ if(!r.ok){box.innerHTML='<div class="rhead warn"><b>Length aur width bhariye</b><small>Dono numbers daalne ke baad fir se Calculate dabayein</small></div>';}
+ else{
+  box.innerHTML=(r.big?'<div class="warnbox">⚠️ Size bahut bada lag raha hai. Feet/meter aur height check karein.</div>':'')+
+   `<div class="rhead">${r.txt}<div class="rbtu">Total need: ${Math.round(r.btu).toLocaleString('en-IN')} BTU/hr</div></div>`+
+   r.rows.map(x=>`<div class="kv ${x[2]}"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')+
+   `<div class="tipbox"><b>💡 Survey zaroor karein</b><small>Ceiling, window aur dhoop dekh kar hi final size lein.</small></div>`;
+ }
+ $('#resV').classList.add('on');window.scrollTo(0,0);
+}
+function closeRes(){$('#resV').classList.remove('on')}
+/* ---------- AC calculator ---------- */
+let UNIT='ft';
+function calc(){
+ let L=+$('#L').value||0,W=+$('#W').value||0,H=+$('#H').value||0;
+ if(UNIT=='m'){L*=3.281;W*=3.281;H*=3.281}
+ const area=L*W,hf=Math.min(1.25,Math.max(.85,(H||10)/10));
+ const kind=+$('#kind').value,fl=+$('#fl').value,sun=+$('#sun').value,ppl=Math.max(0,+$('#ppl').value||0),app=Math.max(0,+$('#app').value||0);
+ const base=area*100*hf;
+ const adj=base*fl*sun;
+ const extra=Math.max(0,ppl-2)*600+app*500+kind;
+ const btu=Math.round(adj+extra),tr=btu/12000,sqm=area/10.764;
+ const sizes=[0.75,1,1.5,2,2.5,3,4,5];
+ let txt;
+ if(area<=0){txt='<small>Enter length and width</small>';}
+ else if(tr<=5){const pick=sizes.find(x=>x>=tr*0.95)||5;txt=`<small>For this room</small><b>1 AC — ${pick} Tons</b>`}
+ else{const n=Math.ceil(tr/3),per=tr/n,pk=sizes.find(x=>x>=per*0.95)||5;txt=`<small>For a room/hall this large</small><b>${n} AC — each ${pk} Tons</b><small>One AC will not take the full load, so split it across separate locations</small>`}
+ const big=area>10000||tr>30;
+ const rows=[['Room area',area.toFixed(0)+' sq ft ('+sqm.toFixed(1)+' sq m)','b1'],['Base (height '+hf.toFixed(2)+')',Math.round(base).toLocaleString('en-IN')+' BTU','b2'],['Floor × sun','× '+(fl*sun).toFixed(2),'b3'],['People, TV, kitchen','+ '+Math.round(extra).toLocaleString('en-IN')+' BTU','b4'],['Total need',Math.round(btu).toLocaleString('en-IN')+' BTU','b5']];
+ showRes({ok:area>0,big,txt,btu,tr,rows});
+}
+$$('#unit button').forEach(b=>b.onclick=()=>{const n=b.dataset.v;if(n==UNIT)return;const k=n=='m'?1/3.281:3.281;['L','W','H'].forEach(i=>$('#'+i).value=(+$('#'+i).value*k).toFixed(1));UNIT=n;$$('#unit button').forEach(x=>x.classList.toggle('on',x==b));calc()});
+/* ---------- Gas PT ---------- */
+/* ln P(bar abs)= A + B/T + C·ln T  (T in Kelvin) — estimate built from critical point, boiling point and 25°C value */
+const GAS={
+ R22:{c:[13.86292,-2586.187901,-0.49901,96.15],n:'AC / window / split (old), cold room',ev:5,sys:'AC'},
+ R32:{c:[10.708642,-2414.402483,0.037915,78.11],n:'New split AC (pressure ~1.6× R22)',ev:5,sys:'AC'},
+ R410A:{c:[11.483287,-2435.319004,-0.089407,71.36],n:'Inverter / new AC (pressure ~1.6× R22)',ev:5,sys:'AC'},
+ R407C:{c:[22.696103,-3037.966978,-1.767956,86.0],n:'Replacing R22 (blend, average value)',ev:5,sys:'AC'},
+ R134a:{c:[17.41398,-2977.169724,-0.971267,101.06],n:'Fridge, chiller, car AC',ev:-20,sys:'FR'},
+ R404A:{c:[11.420366,-2425.936611,-0.132339,72.1],n:'Deep freezer, cold room (blend)',ev:-25,sys:'FR'},
+ R290:{c:[9.611642,-2284.859683,0.053384,96.7],n:'Propane – new AC/fridge (flammable!)',ev:5,sys:'AC'},
+ R600a:{c:[13.685061,-2784.402275,-0.542925,134.7],n:'Household fridge (flammable!)',ev:-25,sys:'FR'}
+};
+let G='R22',PU='psi';
+const bar=(g,c)=>{const [A,B,C]=GAS[g].c,T=c+273.15;return Math.exp(A+B/T+C*Math.log(T))};   // abs
+const psig=(g,c)=>bar(g,c)*14.5038-14.696;
+const conv=p=>PU=='psi'?p:PU=='bar'?(p+14.696)/14.5038-1.01325:((p+14.696)/14.5038-1.01325)*1.01972;
+const fmt=p=>{const v=conv(p);if(PU=='psi')return v<0?(Math.abs(v)<14.6?(v.toFixed(0)):''):v.toFixed(v<10?1:0);return v.toFixed(2)};
+const fmtV=p=>p<-14.6?'—':p<0?'Vacuum '+Math.abs(p).toFixed(0)+' inHg*':fmt(p);
+const inHg=p=>(-p*2.036);
+const unitName=()=>PU=='psi'?'PSI':PU=='bar'?'bar':'kg/cm²';
+function tempFor(g,p){let lo=-80,hi=GAS[g].c[3]-1;for(let i=0;i<60;i++){const m=(lo+hi)/2;if(psig(g,m)<p)lo=m;else hi=m}return(lo+hi)/2}
+function showP(p){ if(p<0){return PU=='psi'?'Vacuum '+inHg(p).toFixed(1)+' inHg':fmt(p)} return fmt(p)}
+function ops(){
+ const amb=+$('#amb').value||35,ev=+$('#evp').value;const g=G;
+ const standing=psig(g,amb),lo1=psig(g,ev-2),lo2=psig(g,ev+2),hi1=psig(g,amb+14),hi2=psig(g,amb+20);
+ const rng=(a,b)=>showP(a)+' – '+showP(b);
+ $('#ops').innerHTML=`<div class="t1"><b>${showP(standing)}</b><span>Standing (off, ${amb}°C)</span></div><div class="t2"><b>${rng(lo1,lo2)}</b><span>Running low side (suction)</span></div><div class="t3"><b>${rng(hi1,hi2)}</b><span>Discharge (high side)</span></div>`;
+ $('#opn').innerHTML=`Unit: ${unitName()} (gauge). Real readings change with load and dirty coils, so use this as a guide.`;
+ if(GAS[g].c[3]-amb<25)$('#opn').innerHTML+=' ⚠️ Too hot outside for this gas – not reliable.';
+}
+function table(){
+ const g=G,rows=[];$('#h1').textContent=unitName();
+ const amb=+$('#amb').value||35;let near=Math.round(amb/5)*5;
+ for(let c=-40;c<=70;c+=5){if(c>=GAS[g].c[3]-3)break;const p=psig(g,c);rows.push(`<tr${c==near?' class="hl"':''}><td style="background:${tc(c)};color:#fff;font-weight:700">${c}</td><td>${(c*1.8+32).toFixed(0)}</td><td>${p<0?'Va '+inHg(p).toFixed(0)+'"':fmt(p)}</td><td>${(((p+14.696)/14.5038)-1.01325).toFixed(2)}</td></tr>`)}
+ $('#tb').innerHTML=rows.join('');
+}
+function pt(){const v=parseFloat($('#pin').value);if(isNaN(v)){$('#pout').textContent='—';return}
+ let p=v;if(PU=='bar')p=(v+1.01325)*14.5038-14.696;else if(PU=='kg')p=(v/1.01972+1.01325)*14.5038-14.696;
+ const t=tempFor(G,p);$('#pout').textContent=t.toFixed(1)+'°C ('+(t*1.8+32).toFixed(0)+'°F)'}
+function pick(g){G=g;$('#evp').value=GAS[g].ev;$$('#gases button').forEach(b=>b.classList.toggle('on',b.dataset.v==g));$('#gnote').textContent=g+': '+GAS[g].n;all()}
+function all(){ops();table();pt();$('#pul').textContent=unitName()}
+$('#gases').innerHTML=Object.keys(GAS).map(g=>`<button data-v="${g}">${g}</button>`).join('');
+$$('#gases button').forEach(b=>b.onclick=()=>{if(EMBED)pick(b.dataset.v);else openGas(b.dataset.v)});
+function openGas(g){const old=document.querySelector('.gpop');if(old)old.remove();const ov=document.createElement('div');ov.className='gpop';ov.innerHTML='<div class="gpop-box" role="dialog" aria-modal="true" aria-label="'+g+' gas pressure"><div class="gpop-h"><span>⛽ '+g+' pressure</span><button class="gpop-x" aria-label="Close">✕</button></div><iframe title="'+g+' gas pressure" src="tools.html?embed=1&gas='+encodeURIComponent(g)+'"></iframe></div>';document.body.appendChild(ov);const close=()=>{ov.remove();document.removeEventListener('keydown',onk)};const onk=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',onk);ov.querySelector('.gpop-x').onclick=close;ov.onclick=e=>{if(e.target===ov)close()};}
+$$('#pu button').forEach(b=>b.onclick=()=>{PU=b.dataset.v;$$('#pu button').forEach(x=>x.classList.toggle('on',x==b));all()});
+['amb','evp'].forEach(i=>$('#'+i).addEventListener('input',()=>{ops();table()}));$('#pin').addEventListener('input',pt);
+const P2=new URLSearchParams(location.search);const EMBED=P2.get('embed')=='1';if(EMBED){document.body.classList.add('embed');if(P2.get('picker')=='1')document.body.classList.add('picker');if(P2.get('tab')=='ac')document.body.classList.add('acmode')}const GAS_Q=P2.get('gas');pick(GAS_Q&&GAS[GAS_Q]?GAS_Q:'R22');
+
+/* tabs + role */
+let UNIT2=UNIT;
+function calcBtn(){calc()}
+$('#calcBtn').onclick=calcBtn;
+function tab(n){$('#p1').style.display=n==1?'':'none';$('#p2').style.display=n==2?'':'none';$('#t1').classList.toggle('on',n==1);$('#t2').classList.toggle('on',n==2)}
+$('#t1').onclick=()=>tab(1);$('#t2').onclick=()=>tab(2);
+function allow(r){if(r=='admin'||r=='tech')$('#t2').style.display=''}
+$('#t2').style.display='none';
+allow(ARNAV.get());
+if(EMBED){tab(P2.get('tab')=='ac'?1:2)}else FB.onAuth(async u=>{if(!u){location.replace('login.html');return}try{const r=await FB.role(u);ARNAV.set(r);ARNAV.render($('#nv'),'tools',r);allow(r);if(location.hash=='#gas'&&(r=='admin'||r=='tech'))tab(2)}catch(e){}});
+</script></body></html>
