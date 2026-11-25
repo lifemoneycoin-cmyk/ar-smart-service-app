@@ -70,7 +70,7 @@ input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:tex
       <label><span>Password</span>
         <div class="inp"><input id="lp" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="lp">Show</button></div>
       </label>
-      <button class="btn" id="bLogin" type="submit">Log in</button>
+      <label style="display:flex;align-items:center;gap:8px;margin:4px 0 12px;cursor:pointer;font-size:13.5px;color:#0d1c32;font-weight:600"><input type="checkbox" id="remMe" style="width:18px;height:18px;min-height:18px;margin:0;accent-color:#1471e6"> <span>Remember me (पासवर्ड याद रखें)</span></label><button class="btn" id="bLogin" type="submit">Log in</button>
     </form>
 
     <form id="fSign" class="hide" novalidate>
@@ -166,4 +166,28 @@ $('#bForgot').onclick=async()=>{const em=$('#le').value.trim();if(!/^[^\s@]+@[^\
   try{await FB.reset(em);msg('Reset link sent to '+em+'. Check Inbox, Spam and Promotions.',true)}catch(er){msg(errText(er))}};
 </script>
 
-<script>document.addEventListener('contextmenu',function(e){if(!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});document.addEventListener('copy',function(e){if(!e.target.closest||!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});</script></body></html>
+<script>document.addEventListener('contextmenu',function(e){if(!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});document.addEventListener('copy',function(e){if(!e.target.closest||!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});</script>
+<script>
+(function(){
+  try{
+    var re=localStorage.getItem('ar_rem_e'), rp=localStorage.getItem('ar_rem_p');
+    if(re&&rp){
+      var le=document.getElementById('le'), lp=document.getElementById('lp'), rm=document.getElementById('remMe');
+      if(le)le.value=atob(re); if(lp)lp.value=atob(rp); if(rm)rm.checked=true;
+    }
+    var fl=document.getElementById('fLogin');
+    if(fl)fl.addEventListener('submit',function(){
+      var rm=document.getElementById('remMe'), le=document.getElementById('le'), lp=document.getElementById('lp');
+      if(rm&&rm.checked&&le&&lp&&le.value&&lp.value){
+        localStorage.setItem('ar_rem_e',btoa(le.value.trim()));
+        localStorage.setItem('ar_rem_p',btoa(lp.value));
+      }else{
+        localStorage.removeItem('ar_rem_e');
+        localStorage.removeItem('ar_rem_p');
+      }
+    });
+  }catch(e){}
+})();
+</script>
+
+</body></html>
