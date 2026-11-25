@@ -228,3 +228,18 @@ input, textarea, select, .sinput {
   .ent-banks { grid-template-columns:repeat(4,1fr) !important; }
   .ent-split { grid-template-columns:1fr 1fr !important; }
 }
+
+@media (min-width: 768px) {
+  .apk-only-banner { display: none !important; }
+  .pad { max-width: 1100px !important; margin: 0 auto !important; }
+  .wrap { max-width: 520px !important; margin: -46px auto 0 !important; }
+}
+
+/* Mobile (<768px): keep bottom bar to 5 clean tabs; hide extra sidebar-only items */
+@media (max-width: 767px) {
+  #nav button.mob-hide { display: none !important; }
+  #nav button { font-size: 11px !important; padding: 6px 2px !important; }
+}
+@media (min-width: 768px) {
+  #nav button.mob-only { display: none !important; }
+}

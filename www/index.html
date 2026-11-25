@@ -300,7 +300,7 @@ details.acc>summary small{font-weight:400;color:var(--mu);font-size:11px;display
 
 .acc{background:#fff;border-radius:18px;margin:12px 0;box-shadow:0 1px 3px rgba(20,40,80,.08);overflow:hidden}.acc>summary{padding:15px 16px;font-weight:700;color:var(--pri2);list-style:none;cursor:pointer;font-size:16px}.acc>summary::-webkit-details-marker{display:none}.acc>summary::after{content:'▾';float:right;color:var(--mu)}.acc[open]>summary::after{content:'▴'}.acc>.card{margin:0;box-shadow:none;border-radius:0}.acc .li{box-shadow:none;border:1px solid var(--bd)}
 .sv{padding:10px 12px!important}.svr{display:grid;grid-template-columns:1fr 96px 40px;gap:8px;align-items:center}.svr .x{margin:0}.sv .chips{gap:6px;margin-top:8px}.sv .chip{padding:5px 11px;min-height:34px;font-size:13px}.sv details{margin-top:8px}.sv summary{font-size:13px;color:var(--mu);cursor:pointer;padding:4px 0}
-</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"><link rel="stylesheet" href="theme.css?v=40.0"><script src="lang.js"></script><script src="app-bridge.js"></script>
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"><link rel="stylesheet" href="theme.css?v=41.0"><script src="lang.js"></script><script src="app-bridge.js"></script>
 <script src="tech-plans.js?v=39.0"></script>
 <style>/* INLINE_THEME_V38 */
 /* AR Smart Service – Field Precision Unified Theme & Web Portal Sidebar (v39.0.0) */
@@ -532,6 +532,21 @@ input, textarea, select, .sinput {
   .ent-kpis { grid-template-columns:repeat(4,1fr) !important; }
   .ent-banks { grid-template-columns:repeat(4,1fr) !important; }
   .ent-split { grid-template-columns:1fr 1fr !important; }
+}
+
+@media (min-width: 768px) {
+  .apk-only-banner { display: none !important; }
+  .pad { max-width: 1100px !important; margin: 0 auto !important; }
+  .wrap { max-width: 520px !important; margin: -46px auto 0 !important; }
+}
+
+/* Mobile (<768px): keep bottom bar to 5 clean tabs; hide extra sidebar-only items */
+@media (max-width: 767px) {
+  #nav button.mob-hide { display: none !important; }
+  #nav button { font-size: 11px !important; padding: 6px 2px !important; }
+}
+@media (min-width: 768px) {
+  #nav button.mob-only { display: none !important; }
 }
 
 </style>
@@ -809,7 +824,7 @@ const BNAV=[['billing','📊','Dashboard'],['customers','👥','Parties'],['inv'
 const BNSECT={billing:'billing',customers:'customers',customer:'customers',cedit:'customers',inv:'inv',booklink:'booklink',more:'more',purchase:'more'};
 function setNav(p){if(p=='billing')window.BILLMODE=true;else if(['home','jobs','job','jedit','history','profile','team','tech'].includes(p)||(p=='settings'&&!/s=billing/.test(location.hash)))window.BILLMODE=false;
 if(window.BILLMODE){const cur=BNSECT[p]||'billing';$('#nav').innerHTML=BNAV.map(([k,i,l])=>`<button data-go="#/${k}" class="${cur==k?'on':''}"><i>${i}</i><span class="nl">${l}</span></button>`).join('');return}
-const grp={profile:'settings',billing:'home',jobs:'jobs',job:'jobs',jedit:'jobs',due:'home',stats:'home',rates:'home',booklink:'home',inbox:'jobs',online:'jobs',biz:'home',codes:'home',amc:'home',amced:'home',exp:'home',inv:'home',customers:'customers',customer:'customers',cedit:'customers',history:'history',doc:'history',team:'home',tech:'home',settings:'settings',banners:'settings',sample:'settings'},cur=grp[p]||p;$('#nav').innerHTML=[['home','🏠','Dashboard'],['crm','📈','CRM Leads'],['jobs','🛠️','Jobs'],['customers','👥','Customers'],['billing','🧾','Billing'],['purchase','🛒','Purchase'],['accounts','🏦','Accounts'],['parties','📒','Party Khata'],['expenses','💸','Expenses'],['pnl','📊','Profit/Loss'],['portal','🛡️','Admin Portal'],['settings','⚙️','Settings']].map(([k,i,l])=>`<button data-go="#/${k}" class="${cur==k?'on':''}"><i>${i}</i><span class="nl">${l}</span></button>`).join('')}
+const grp={profile:'settings',billing:'home',jobs:'jobs',job:'jobs',jedit:'jobs',due:'home',stats:'home',rates:'home',booklink:'home',inbox:'jobs',online:'jobs',biz:'home',codes:'home',amc:'home',amced:'home',exp:'home',inv:'home',customers:'customers',customer:'customers',cedit:'customers',history:'history',doc:'history',team:'home',tech:'home',settings:'settings',banners:'settings',sample:'settings'},cur=grp[p]||p;$('#nav').innerHTML=[['home','🏠','Home',0],['jobs','🛠️','Jobs',0],['billing','🧾','Billing',0],['accounts','🏦','Accounts',0],['more','☰','Menu',2],['crm','📈','CRM Leads',1],['customers','👥','Customers',1],['purchase','🛒','Purchase',1],['parties','📒','Party Khata',1],['expenses','💸','Expenses',1],['pnl','📊','Profit/Loss',1],['portal','🛡️','Admin Portal',1],['settings','⚙️','Settings',1]].map(([k,i,l,m])=>`<button data-go="#/${k}" class="${cur==k?'on':''} ${m==1?'mob-hide':(m==2?'mob-only':'')}"><i>${i}</i><span class="nl">${l}</span></button>`).join('')}
 function billBtns(d){const draft=d.status=='draft';if(d.type!='bill'||draft)return '';const due=num(d.amount)>num(d.paid);return `<div class="bact">${due?`<button class="rc" data-act="payQuick" data-doc="${d.id}"><i>💵</i>Receive payment</button>`:''}<button class="bs" data-act="sendSms" data-doc="${d.id}"><i>💬</i>SMS</button><button class="bs" data-act="sendBill" data-doc="${d.id}"><i>📤</i>Send bill</button>${due?`<button class="br${d.remindOn?' on':''}" data-act="setRemind" data-doc="${d.id}"><i>🔔</i>${d.remindOn?'Reminder '+esc(d.remindOn):'Set reminder'}</button>`:''}</div>`}
 function docItem(d){const draft=d.status=='draft';let right='',badge='';
  if(!RC.includes(d.type)){const bal=num(d.amount)-num(d.paid);right=d.type=='bill'&&!draft?(bal>0?`<b style="color:#b45309">Balance ${money(bal)}</b><br><small>Total ${money(d.amount)}</small>`:`<small>Total ${money(d.amount)}</small>`):money(d.amount);badge=d.type=='bill'?(d.paid>=d.amount&&d.amount>0?'<span class="bd g">Paid</span>':d.paid>0?'<span class="bd o">Partial</span>':'<span class="bd r">Unpaid</span>'):'<span class="bd b">Quotation</span>'}
@@ -842,7 +857,7 @@ function vHome(){F=null;const m=today().slice(0,7),fin=D.filter(d=>d.status!='dr
   <div><div class="sec">🛠️ Today’s &amp; Pending Jobs (${tj.length}) <a data-go="#/jobs">See all</a></div>${window.pendJobsHtml?pendJobsHtml():''}${tj.slice(0,4).map(jobLi).join('')||'<div class="empty">No open jobs today.</div>'}</div>
   <div><div class="sec">🔔 Payment &amp; Service Reminders <a data-go="#/history">History</a></div>${dueRemindHtml()}${dl.slice(0,3).map(dueLi).join('')}${sortD(D.filter(d=>d.date==today()||(d.ts&&new Date(d.ts).toDateString()==new Date().toDateString()))).slice(0,3).map(docItem).join('')||'<div class="empty">No invoices today yet.</div>'}</div>
  </div>
- <div id="banner" style="margin-top:14px"></div>${onlineBanner()}${kpiRow()}${amcDueCards()}`}
+ <div id="banner" class="apk-only-banner" style="margin-top:14px"></div>${onlineBanner()}${kpiRow()}${amcDueCards()}`}
 function custLi(c){const open=D.filter(d=>d.custId==c.id&&d.type=='bill'&&d.status!='draft').reduce((a,d)=>a+Math.max(0,d.amount-d.paid),0);return `<div class="li" data-go="#/customer/${encodeURIComponent(c.id)}"><div class="ic cust">👤</div><div class="m"><b>${esc(c.name)}</b><small>${esc([c.mobile,c.site].filter(Boolean).join(' · '))}</small></div>${open?`<div class="r"><span class="bd r">Balance ${money(open)}</span></div>`:''}</div>`}
 function vCusts(){F=null;$('#app').innerHTML=`<div class="top"><h1>Customer</h1><p>${C.length} Customer saved</p></div><div class="pad"><input class="sinput" id="cq" placeholder="🔍 Search name / number / site"><div style="height:10px"></div><button class="btn wide" data-go="#/cedit/new">➕ New customer</button></div><div id="cl"></div>`;listC()}
 function fixCids(){C.forEach(c=>{if(c&&(c.id===undefined||c.id===null||c.id==='')){const m=String(c.mobile||'').replace(/\D/g,'').slice(-10);c.id=m.length==10?'c'+m:'c'+uid();try{pC(c)}catch(e){}}})}
@@ -1713,6 +1728,6 @@ function waText(d){const c=liveCust(d),n=S.name;if(d.type=='bill'){const bal=d.a
 (async()=>{await init();await migrate2();route();try{cloudStart()}catch(e){}if('serviceWorker' in navigator&&location.protocol.indexOf('http')==0)navigator.serviceWorker.register('sw.js').catch(()=>{})})();
 
 Object.assign(ACT,{appLock(){if(window.ARGUARD)ARGUARD.toggle()},pushOn(){FB.enablePush().then(()=>toast('Notifications turned on ✅')).catch(e=>toast((e&&e.message)||'Notifications did not turn on'))}});
-</script><script src="guard.js" data-pin="1"></script><script src="inv-catalog.js"></script><script src="jobitems.js"></script><script src="role.js?v=40.0"></script><script>document.addEventListener('contextmenu',function(e){if(!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});document.addEventListener('copy',function(e){if(!e.target.closest||!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});</script>
+</script><script src="guard.js" data-pin="1"></script><script src="inv-catalog.js"></script><script src="jobitems.js"></script><script src="role.js?v=41.0"></script><script>document.addEventListener('contextmenu',function(e){if(!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});document.addEventListener('copy',function(e){if(!e.target.closest||!e.target.closest('input,textarea,select,[contenteditable]'))e.preventDefault()});</script>
 <script src="httpsms.js"></script><script src="safety.js"></script><script src="employees.js"></script><script src="expenses.js"></script><script src="chat.js"></script><script src="jobbill.js"></script><script src="billing-pro.js"></script>
 <script src="ar-extra.js"></script></body></html>
