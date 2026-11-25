@@ -1,7 +1,7 @@
 /* AR Smart – Daily expenses (upgraded page). Same data (KV.exp: {id,cat,date,amt,note}) + optional extra fields.
    Old entries, profit/loss and backups keep working exactly as before. */
 (function(){
-var CATS=[['⛽','Petrol / Diesel'],['🚗','Vehicle repair & service'],['🧾','Vehicle insurance / challan'],['🛒','Purchase / Stock'],['🔩','Spare parts'],['🧰','Workshop / Misc'],['🛠️','Tools & equipment'],['🧪','Gas & consumables'],['💵','Technician salary'],['🤝','Advance to staff'],['🍵','Food & tea'],['🏢','Rent'],['💡','Electricity'],['📱','Phone / Internet'],['📦','Transport / courier'],['📣','Marketing'],['➕','Other']];
+var CATS=[['⛽','Petrol / Diesel'],['🚗','Vehicle repair & service'],['🧾','Vehicle insurance / challan'],['🛒','Purchase / Stock'],['🔩','Spare parts'],['🧰','Workshop / Misc'],['🛠️','Tools & equipment'],['🧪','Gas & consumables'],['💵','Technician salary'],['🤝','Advance to staff'],['🍵','Food & tea'],['🏢','Rent'],['💡','Electricity'],['📱','Phone / Internet'],['📦','Transport / courier'],['📣','Marketing'],['🏠','Home / Personal'],['➕','Other']];
 /* old names stay valid */
 var OLD={'Petrol / travel':'⛽'};
 var ST={cat:'Petrol / Diesel',filter:'',q:'',edit:null,mode:'Cash',m:null};
@@ -29,7 +29,7 @@ function view(){
  '<div class="card" style="background:linear-gradient(135deg,#0b2e6b,#1a6fd4);color:#fff"><small>AAJ KA KHARCHA</small><div style="font-size:28px;font-weight:800">'+rs(today)+'</div><small>'+mName(m)+': '+rs(tot)+' ('+all.length+' entries)</small></div>'+
  '<div class="card" id="exForm"><b>'+(ed?'✏️ Kharcha badlein':'➕ Naya kharcha')+'</b><div class="chips" style="margin-top:8px">'+cats.map(function(c){return '<button type="button" class="chip'+(ST.cat==c?' on':'')+'" data-ex="cat" data-v="'+X(c)+'">'+icon(c)+' '+X(c)+'</button>'}).join('')+'</div>'+
  '<div class="g2" style="margin-top:8px"><input class="sinput" id="x_a" inputmode="decimal" placeholder="Amount ₹" value="'+(ed?X(ed.amt):'')+'"><input class="sinput" id="x_d" type="date" value="'+(ed?X(ed.date):td())+'"></div>'+
- '<div class="chips" style="margin-top:8px">'+['Cash','UPI','Bank','Udhaar'].map(function(p){return '<button type="button" class="chip'+(ST.mode==p?' on':'')+'" data-ex="mode" data-v="'+p+'">'+p+'</button>'}).join('')+'</div>'+
+ '<div class="chips" style="margin-top:8px">'+['Cash','SBI','HDFC','IDFC','Udhaar'].map(function(p){return '<button type="button" class="chip'+(ST.mode==p?' on':'')+'" data-ex="mode" data-v="'+p+'">'+p+'</button>'}).join('')+'</div>'+
  '<div class="g2" style="margin-top:8px"><input class="sinput" id="x_by" list="x_byl" placeholder="Kisne kiya? (technician / staff)" value="'+(ed?X(ed.by||''):'')+'"><datalist id="x_byl">'+who().map(function(w){return '<option value="'+X(w)+'">'}).join('')+'</datalist><input class="sinput" id="x_v" placeholder="Gaadi no. (agar ho)" value="'+(ed?X(ed.veh||''):'')+'"></div>'+
  '<input class="sinput" id="x_n" placeholder="Note (kya liya / kahan)" style="margin-top:8px" value="'+(ed?X(ed.note||''):'')+'">'+
  '<label style="display:block;margin-top:8px;font-size:13px;color:#475569">📷 Bill ki photo (zaroori nahi) <input type="file" accept="image/*" id="x_p" style="display:block;margin-top:4px"></label>'+
