@@ -10,12 +10,13 @@
     "webContentsDebuggingEnabled": false
   },
   "server": {
+    "url": "https://arsmart.co.in/app/",
     "androidScheme": "https",
     "cleartext": false
   },
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 1500,
+      "launchShowDuration": 1200,
       "launchAutoHide": true,
       "backgroundColor": "#0f2942",
       "showSpinner": false
