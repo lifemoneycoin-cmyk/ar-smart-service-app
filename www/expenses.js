@@ -1,7 +1,7 @@
 /* AR Smart – Daily expenses (upgraded page). Same data (KV.exp: {id,cat,date,amt,note}) + optional extra fields.
    Old entries, profit/loss and backups keep working exactly as before. */
 (function(){
-var CATS=[['⛽','Petrol / Diesel'],['🚗','Vehicle repair & service'],['🧾','Vehicle insurance / challan'],['🛒','Purchase / Stock'],['🔩','Spare parts'],['🧰','Workshop / Misc'],['🛠️','Tools & equipment'],['🧪','Gas & consumables'],['💵','Technician salary'],['🤝','Advance to staff'],['🍵','Food & tea'],['🏢','Rent'],['💡','Electricity'],['📱','Phone / Internet'],['📦','Transport / courier'],['📣','Marketing'],['🏠','Home / Personal'],['➕','Other']];
+var CATS=[['⛽','Petrol / Diesel'],['🚗','Vehicle repair & service'],['🧾','Vehicle insurance / challan'],['🛒','Purchase / Stock'],['🔩','Spare parts'],['🏠','Home / Personal'],['🛠️','Tools & equipment'],['🧪','Gas & consumables'],['💵','Technician salary'],['🤝','Advance to staff'],['🍵','Food & tea'],['🏢','Rent'],['💡','Electricity'],['📱','Phone / Internet'],['📦','Transport / courier'],['📣','Marketing'],['➕','Other']];
 /* old names stay valid */
 var OLD={'Petrol / travel':'⛽'};
 var ST={cat:'Petrol / Diesel',filter:'',q:'',edit:null,mode:'Cash',m:null};
@@ -25,7 +25,7 @@ function view(){
  var ed=ST.edit?KV.exp.filter(function(e){return e.id==ST.edit})[0]:null;if(ed){ST.cat=ed.cat;ST.mode=ed.mode||'Cash'}
  var cats=CATS.map(function(c){return c[1]});Object.keys(by).forEach(function(c){if(cats.indexOf(c)<0)cats.push(c)});
  var max=Math.max.apply(null,Object.keys(by).map(function(k){return by[k]}).concat([1]));
- var h='<div class="bar"><button data-ex="back">←</button><b>💸 Daily Expenses</b><button class="btn sec2" style="margin-left:auto;padding:5px 10px;font-size:12px" data-go="#/purchase">🛒 Purchase Bill</button></div><div class="pad" id="exBody">'+
+ var h='<div class="bar"><button data-ex="back">←</button><b>💸 Daily Expenses</b></div><div class="pad" id="exBody">'+
  '<div class="card" style="background:linear-gradient(135deg,#0b2e6b,#1a6fd4);color:#fff"><small>AAJ KA KHARCHA</small><div style="font-size:28px;font-weight:800">'+rs(today)+'</div><small>'+mName(m)+': '+rs(tot)+' ('+all.length+' entries)</small></div>'+
  '<div class="card" id="exForm"><b>'+(ed?'✏️ Kharcha badlein':'➕ Naya kharcha')+'</b><div class="chips" style="margin-top:8px">'+cats.map(function(c){return '<button type="button" class="chip'+(ST.cat==c?' on':'')+'" data-ex="cat" data-v="'+X(c)+'">'+icon(c)+' '+X(c)+'</button>'}).join('')+'</div>'+
  '<div class="g2" style="margin-top:8px"><input class="sinput" id="x_a" inputmode="decimal" placeholder="Amount ₹" value="'+(ed?X(ed.amt):'')+'"><input class="sinput" id="x_d" type="date" value="'+(ed?X(ed.date):td())+'"></div>'+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Smart Service – Cooling Beyond Limits | AC, RO &amp; Appliance Portal</title>
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+  <style>
+    :root { --pri:#001428; --pri2:#0f2942; --acc:#1471e6; --bg:#f9f9ff; --tx:#0d1c32; --mu:#43474d; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--tx); line-height:1.55; }
+    h1,h2,h3 { font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em; }
+    header { position:sticky; top:0; z-index:40; background:rgba(255,255,255,0.96); backdrop-filter:blur(14px); border-bottom:1px solid #e8eeff; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--pri); }
+    .brand img { width:40px; height:40px; border-radius:10px; object-fit:contain; background:#f0f3ff; padding:3px; }
+    .brand b { font-size:17px; }
+    .nav-btns { display:flex; gap:8px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 16px; border-radius:12px; font-weight:700; font-size:13.5px; text-decoration:none; transition:transform .12s; }
+    .btn:active { transform:scale(0.97); }
+    .btn-pri { background:linear-gradient(135deg,var(--pri2),var(--acc)); color:#fff; box-shadow:0 4px 14px rgba(20,113,230,.28); }
+    .btn-sec { background:#f0f3ff; color:var(--pri2); border:1px solid #d6e3ff; }
+    .hero { background:linear-gradient(135deg,#001428 0%,#0f2942 62%,#1471e6 140%); color:#fff; padding:42px 20px; text-align:center; }
+    .hero-in { max-width:960px; margin:0 auto; }
+    .badge { display:inline-block; background:rgba(255,255,255,.15); padding:5px 14px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.05em; margin-bottom:14px; }
+    .hero h1 { font-size:clamp(26px,4.5vw,42px); margin-bottom:10px; line-height:1.15; }
+    .hero p { font-size:15.5px; color:#dbeafe; margin-bottom:22px; }
+    .slider { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; margin:0 auto 24px; max-width:920px; }
+    .slider::-webkit-scrollbar { display:none; }
+    .slide { flex:0 0 100%; scroll-snap-align:center; border-radius:18px; padding:22px; text-align:left; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); }
+    .slide b { font-size:19px; display:block; margin-bottom:4px; }
+    .slide span { font-size:13.5px; color:#dbeafe; }
+    .portal-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; max-width:920px; margin:0 auto; }
+    .p-card { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); border-radius:16px; padding:16px; color:#fff; text-decoration:none; text-align:left; }
+    .p-card b { display:block; font-size:15.5px; margin-bottom:4px; }
+    .p-card span { font-size:12.5px; color:#dbeafe; }
+    .sec { max-width:1080px; margin:0 auto; padding:38px 20px; }
+    .sec h2 { font-size:25px; text-align:center; margin-bottom:6px; color:var(--pri); }
+    .sec .sub { text-align:center; color:var(--mu); margin-bottom:24px; font-size:14.5px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+    .card { background:#fff; border:1px solid #e8eeff; border-radius:18px; padding:20px; box-shadow:0 4px 16px rgba(13,28,50,.05); }
+    .price { font-size:19px; font-weight:800; color:#0058bb; margin:8px 0; }
+    .stars { color:#f59e0b; font-weight:800; font-size:14px; margin:4px 0; }
+    .pill-ok { display:inline-block; background:#dcfce7; color:#166534; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; }
+    footer { background:#001428; color:#b0c9e8; text-align:center; padding:26px 20px; font-size:13px; }
+    footer a { color:#fff; text-decoration:none; font-weight:600; margin:0 8px; }
+  </style>
+<link rel="stylesheet" href="theme.css?v=44.1">
+<script src="app-bridge.js?v=43.0"></script>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#"><img src="icon-192.png" alt="AR Smart Service"><b>AR Smart Service</b></a>
+    <div class="nav-btns">
+      <a class="btn btn-sec" href="booking.html">📅 Book Service</a>
+      <a class="btn btn-sec" href="download.html">📱 Download APK</a>
+      <a class="btn btn-pri" href="login.html">🔐 Portal Login</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-in">
+      <div class="badge">❄️ COOLING BEYOND LIMITS • AR ENTERPRISES</div>
+      <h1>AC, RO Plant, Water Chiller &amp; Appliance Experts</h1>
+      <p>Certified technicians, genuine spare parts, transparent GST billing &amp; same-day service across Maharashtra.</p>
+
+      <div class="slider" id="homeSlider">
+        <div class="slide"><b>❄️ Summer AC Foam Jet Service — Book Now</b><span>Complete indoor &amp; outdoor wash, cooling check &amp; 30-day service warranty.</span></div>
+        <div class="slide"><b>💧 Commercial RO Plant &amp; Water Chiller Sales</b><span>1000 LPH RO Plants, 3 Ton Chillers &amp; genuine spares with installation.</span></div>
+        <div class="slide"><b>📱 Get the AR Smart Service Android App</b><span>Track technician arrival, download PDF bills &amp; manage AMC plans.</span></div>
+      </div>
+
+      <div class="portal-grid">
+        <a class="p-card" href="login.html?role=admin"><b>🛡️ Admin Portal Login ›</b><span>ERP Dashboard, Billing, Cash/SBI/HDFC/IDFC &amp; CRM</span></a>
+        <a class="p-card" href="login.html?role=tech"><b>👷 Technician Login ›</b><span>Assigned Jobs, Inspection, Van Stock &amp; Billing Plans</span></a>
+        <a class="p-card" href="login.html?role=customer"><b>👤 Customer Login ›</b><span>Live Service Status, Digital Bills &amp; Warranty</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Featured Products &amp; Spare Parts</h2>
+    <p class="sub">Genuine equipment &amp; spares available for direct order and installation</p>
+    <div class="grid">
+      <div class="card"><span class="pill-ok">In Stock</span><h3 style="margin-top:8px">1000 LPH Commercial RO Plant</h3><div class="price">₹1,20,000</div><p>Heavy-duty SS skid plant with high-recovery membranes &amp; installation support.</p><a class="btn btn-sec" style="margin-top:12px;width:100%" href="shop.html">Order / Enquire ›</a></div>
+      <div class="card"><span class="pill-ok">In Stock</span><h3 style="margin-top:8px">3 Ton Water Chiller</h3><div class="price">₹72,000</div><p>Industrial cooling chiller with plate heat exchanger &amp; digital controller.</p><a class="btn btn-sec" style="margin-top:12px;width:100%" href="shop.html">Order / Enquire ›</a></div>
+      <div class="card"><span class="pill-ok">In Stock</span><h3 style="margin-top:8px">Aqua Neon RO 25 LPH</h3><div class="price">₹13,500</div><p>Ideal for offices, clinics &amp; homes with UV + TDS controller.</p><a class="btn btn-sec" style="margin-top:12px;width:100%" href="shop.html">Order / Enquire ›</a></div>
+      <div class="card"><span class="pill-ok">In Stock</span><h3 style="margin-top:8px">AC Compressor 1.5 Ton</h3><div class="price">₹4,500</div><p>Genuine rotary compressor with 1-year replacement warranty support.</p><a class="btn btn-sec" style="margin-top:12px;width:100%" href="shop.html">Order / Enquire ›</a></div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:10px">
+    <h2>Top Rated Certified Technicians</h2>
+    <p class="sub">Verified background-checked specialists rated by real customers</p>
+    <div class="grid">
+      <div class="card"><h3>👷 Musa Shaikh</h3><div class="stars">★★★★★ 4.9 / 5.0</div><p><b>185+ Completed Jobs</b> · Senior AC, Inverter PCB &amp; Commercial Water Chiller Specialist. Known for accurate diagnosis and on-time service.</p></div>
+      <div class="card"><h3>👷 Rehan Shaikh</h3><div class="stars">★★★★★ 4.8 / 5.0</div><p><b>145+ Completed Jobs</b> · Split/Window AC, Gas Charging &amp; RO Plant Expert. Praised for clean work and transparent billing.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:10px">
+    <h2>Recent Completed Jobs &amp; Customer Reviews</h2>
+    <p class="sub">Feedback from verified service visits across Maharashtra</p>
+    <div class="grid">
+      <div class="card"><div class="stars">★★★★★ 5.0</div><h3>Sunil Pabale (Gevrai)</h3><p>“Completed AC servicing cleanly on schedule. Received digital PDF invoice and warranty immediately on WhatsApp.”</p></div>
+      <div class="card"><div class="stars">★★★★★ 5.0</div><h3>Gufaran Bhai (Georai)</h3><p>“Prompt technician visit and genuine spare parts used. Very professional service by AR Enterprises.”</p></div>
+      <div class="card"><div class="stars">★★★★★ 4.9</div><h3>Javed Shaikh (Vihamandva)</h3><p>“Solved our cooling issue in one visit. Transparent pricing and polite technician team.”</p></div>
+      <div class="card"><div class="stars">★★★★★ 4.8</div><h3>Vitthal Zirpe</h3><p>“Reliable RO &amp; AC maintenance partner. Easy online booking and clear payment tracking.”</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 AR Enterprises • AR Smart Service. All rights reserved.</div>
+    <div style="margin-top:8px">
+      <a href="booking.html">Book Service</a> ·
+      <a href="login.html">Portal Login</a> ·
+      <a href="download.html">Download APK</a> ·
+      <a href="tel:9822452074">9822452074</a>
+    </div>
+  </footer>
+  <script>
+    (function(){
+      var s=document.getElementById('homeSlider'), i=0;
+      if(s&&s.children.length>1) setInterval(function(){ i=(i+1)%s.children.length; s.scrollTo({left:i*s.clientWidth,behavior:'smooth'}); }, 4000);
+    })();
+  </script>
+</body>
+</html>

@@ -1,17 +1,20 @@
-/* AR Smart Service - Capacitor Native Bridge & Navigation Guard (v34.0.0) */
+/* AR Smart Service - Capacitor Native Bridge & Permissions (v46.0.0) */
 (function(){
   var isCap = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   window.AR_IS_APK = isCap;
+  window.AR_PUBLIC_BASE = 'https://arsmart.co.in/app/';
 
-  // Unregister any old Service Workers inside Capacitor/localhost so pages never hijack to index.html
   if ((isCap || location.hostname === 'localhost') && 'serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(regs){
       regs.forEach(function(r){ r.unregister(); });
     }).catch(function(){});
   }
 
-  // Handle Android hardware Back button inside Capacitor
   document.addEventListener('DOMContentLoaded', function(){
+    // Request basic Notification & Location permission gracefully in APK
+    if (isCap) {
+      try { if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission(); } catch(e){}
+    }
     if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
       window.Capacitor.Plugins.App.addListener('backButton', function(ev){
         if (ev && ev.canGoBack && history.length > 1) {

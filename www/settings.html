@@ -1,70 +1,222 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="notranslate"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f3a7a">
+<html class="h-full" lang="en" translate="no"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+<title>AR Smart Service – Settings &amp; Security</title>
 <link rel="icon" href="icon-192.png">
-<title>AR Smart Service – Settings</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{'surface':'#f9f9ff','surface-container-lowest':'#ffffff','surface-container-low':'#f0f3ff','surface-container':'#e8eeff','surface-container-high':'#dfe8ff','surface-container-highest':'#d6e3ff','on-surface':'#0d1c32','on-surface-variant':'#43474d','primary':'#001428','on-primary':'#ffffff','primary-container':'#0f2942','secondary':'#0058bb','secondary-container':'#1471e6','secondary-fixed':'#d8e2ff','on-secondary-fixed':'#001a41','error':'#ba1a1a','error-container':'#ffdad6','on-error-container':'#93000a'}}}}</script>
+<link rel="stylesheet" href="theme.css?v=45.0">
+<script src="lang.js"></script>
+<script src="app-bridge.js?v=45.0"></script>
 <style>
-:root{--pri:#0f4bc4;--pri2:#0a2f7a;--bg:#eef3fb;--tx:#18222f;--mu:#5f6d83;--bd:#d9e1ef;--ok:#1d9e4a;--bad:#d93025}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
-body{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
-.w{max-width:620px;margin:0 auto}
-.top{background:linear-gradient(135deg,#0a2f7a,#0f4bc4 58%,#1e88ff 130%);color:#fff;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 18px;border-radius:0 0 22px 22px;display:flex;gap:12px;align-items:center}
-.top img{width:54px;height:54px;border-radius:50%;background:#fff;padding:2px}.top h1{margin:0;font-size:20px}.top p{margin:2px 0 0;font-size:12.5px;opacity:.9;word-break:break-all}
-.pad{padding:12px 14px}
-.card{background:#fff;border:1px solid #e3e9f4;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(15,50,120,.06)}
-.card h3{margin:0 0 10px;font-size:16px}
-label.f{display:block;margin:0 0 10px}label.f span{display:block;font-size:13px;color:var(--mu);margin-bottom:4px}
-input,textarea{width:100%;font:inherit;border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;background:#fff;outline:0}input:focus,textarea:focus{border-color:var(--pri)}
-.btn{display:block;width:100%;border:0;border-radius:14px;background:linear-gradient(135deg,#0f4bc4,#1e88ff);color:#fff;font:inherit;font-weight:700;padding:13px;text-align:center;text-decoration:none;margin-top:8px}
-.btn.sec{background:#e3edff;color:var(--pri2)}.btn.rd{background:#fde8e6;color:#a5201a}
-.note{font-size:13px;color:var(--mu)}ol{margin:6px 0 0;padding-left:20px;font-size:14.5px}ol li{margin:4px 0}
-.msg{margin-top:8px;font-size:14px;font-weight:600}.ok{color:var(--ok)}.er{color:var(--bad)}
-.bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
-.bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
-</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
-<script src="app-bridge.js"></script>
-</head><body><div class="w">
-<div class="top"><img src="logo.png" alt=""><div><h1>⚙️ Settings</h1><p id="em">Not logged in</p></div></div>
-<div class="pad">
- <div class="card" id="cLogin" style="display:none"><h3>Log in</h3><p class="note">To see settings, first log in to your account.</p><a class="btn" href="booking.html#my=1">Log in / create account</a></div>
- <div class="card" id="cProf" style="display:none"><h3>👤 My profile</h3>
-  <label class="f"><span>Name</span><input id="pn" maxlength="80"></label>
-  <label class="f"><span>Mobile number</span><input id="pm" inputmode="tel" maxlength="14"></label>
-  <label class="f" id="fa"><span>Address</span><textarea id="pa" rows="2" maxlength="200"></textarea></label>
-  <button class="btn" id="ps">💾 Save</button><div class="msg" id="pmsg"></div></div>
- <a class="btn sec" href="shop.html" style="margin:0 0 12px">🛒 Open shop / my orders</a><div class="card" id="cRole" style="display:none"><h3>🧭 My account</h3><div class="note" id="rl"></div><a class="btn sec" id="rtn" href="tech.html" style="display:none">Open my jobs</a></div>
- <div class="card"><h3>📤 Share app</h3>
-  <p class="note">Friends aur customers ko app ka link WhatsApp par bhejein.</p>
-  <button class="btn" id="shr">📤 Share on WhatsApp</button></div>
- <div class="card" id="cPw" style="display:none"><h3>🔑 Password</h3><p class="note">A link to create a new password will be sent to your email.</p><button class="btn sec" id="pw">Send password-change email</button><div class="msg" id="pwm"></div></div>
- <div class="card"><h3>ℹ️ About the app</h3><div class="note">AR Smart Service – Cooling Beyond Limits<br>Version <span id="vv">33.8.1.98</span></div></div>
- <button class="btn rd" id="lo" style="display:none">🚪 Logout</button>
-</div></div>
-<nav id="nv"></nav>
-<script src="fb.js"></script><script src="nav.js"></script>
-<script src="role.js"></script>
-<script>
-const $=s=>document.querySelector(s);let U=null,ROLE=null,DP=null;
+  html,body{width:100%;margin:0;padding:0;min-height:100%}
+  .pb-safe{padding-bottom:env(safe-area-inset-bottom,0px)}
+  .pt-safe{padding-top:env(safe-area-inset-top,0px)}
+  body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-full">
 
-const APP=location.origin+location.pathname.replace(/settings\.html$/,'');
-const SHARE_TXT='AR Smart Service – AC service booking aur error code guide. App yahan kholein: '+APP;
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-sm">
+  <div class="h-16 px-4 max-w-4xl mx-auto flex items-center justify-between gap-2">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="index.html" class="w-9 h-9 rounded-full bg-surface-container-low flex items-center justify-center text-primary no-underline font-bold">←</a>
+      <img src="icon-192.png" alt="AR Smart Service" class="w-9 h-9 rounded-xl object-contain bg-white p-0.5 shadow-sm"/>
+      <div class="min-w-0">
+        <div class="flex items-center gap-1.5">
+          <span class="font-bold text-primary text-sm truncate">AR Smart Service</span>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase" id="roleBadge">User</span>
+        </div>
+        <div class="text-xs text-on-surface-variant truncate" id="em">Checking account…</div>
+      </div>
+    </div>
+    <button id="shr" type="button" class="px-3 py-1.5 rounded-full bg-surface-container-low text-secondary text-xs font-bold">📤 Share</button>
+  </div>
+</header>
+
+<main class="flex-1 w-full max-w-4xl mx-auto pt-20 px-4 pb-8 flex flex-col gap-4">
+
+  <!-- Not Logged In Card -->
+  <div id="cLogin" class="hidden rounded-2xl bg-surface-container-lowest p-5 shadow-sm border border-surface-container">
+    <h2 class="text-base font-bold text-primary mb-1">Log in Required</h2>
+    <p class="text-sm text-on-surface-variant mb-3">Sign in to manage your profile, security lock, and backup.</p>
+    <a href="login.html" class="block w-full py-3 rounded-xl bg-secondary-container text-white text-center font-bold no-underline">🔐 Log in / Create account</a>
+  </div>
+
+  <!-- Profile Card (Real Firebase Data) -->
+  <div id="cProf" class="hidden rounded-2xl bg-surface-container-lowest p-5 shadow-sm border border-surface-container">
+    <div class="flex items-center gap-3 mb-4">
+      <img src="logo.png" alt="Profile" class="w-12 h-12 rounded-full object-contain bg-surface-container-low p-1 border border-surface-container"/>
+      <div class="min-w-0">
+        <h1 class="text-lg font-bold text-on-surface truncate" id="profNameHeading">My Profile</h1>
+        <p class="text-xs text-on-surface-variant" id="rl">Account Settings</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div><label class="text-xs font-semibold text-on-surface-variant block mb-1">Name</label><input id="pn" maxlength="80" class="w-full px-3 py-2.5 rounded-xl border border-surface-container-highest bg-white text-sm"/></div>
+      <div><label class="text-xs font-semibold text-on-surface-variant block mb-1">Mobile Number</label><input id="pm" inputmode="tel" maxlength="14" class="w-full px-3 py-2.5 rounded-xl border border-surface-container-highest bg-white text-sm"/></div>
+    </div>
+    <div id="fa" class="mt-3"><label class="text-xs font-semibold text-on-surface-variant block mb-1">Address</label><textarea id="pa" rows="2" maxlength="200" class="w-full px-3 py-2.5 rounded-xl border border-surface-container-highest bg-white text-sm"></textarea></div>
+    <div class="flex gap-2 mt-3">
+      <button id="ps" type="button" class="flex-1 py-2.5 rounded-xl bg-secondary-container text-white font-bold text-sm">💾 Save Profile</button>
+      <a id="admBtn" href="index.html#/settings" class="hidden py-2.5 px-4 rounded-xl bg-surface-container-low text-primary font-bold text-sm no-underline">🏢 Company &amp; GST Settings</a>
+    </div>
+    <div id="pmsg" class="text-xs font-semibold mt-2"></div>
+  </div>
+
+  <!-- App Security & Biometric Lock (Stitch Design + Real localStorage) -->
+  <div class="rounded-2xl bg-surface-container-lowest p-5 shadow-sm border border-surface-container flex flex-col gap-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary text-[20px]">security</span>
+        <h2 class="text-base font-bold text-on-surface">App Security &amp; Lock</h2>
+      </div>
+      <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[11px] font-bold" id="lockStatusBadge">Off</span>
+    </div>
+
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed flex-shrink-0">
+          <span class="material-symbols-outlined text-[22px]">fingerprint</span>
+        </div>
+        <div class="min-w-0">
+          <div class="text-sm font-semibold text-on-surface">App Lock (APK Only)</div>
+          <div class="text-xs text-on-surface-variant">Require PIN / biometric after 5 min background in APK</div>
+        </div>
+      </div>
+      <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+        <input id="bio-toggle" type="checkbox" class="sr-only peer"/>
+        <div class="w-12 h-7 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-secondary-container"></div>
+      </label>
+    </div>
+
+    <div class="flex items-center justify-between gap-2 p-3 rounded-xl bg-surface-container-low">
+      <div>
+        <div class="text-xs font-bold text-on-surface">App Safety PIN</div>
+        <div class="text-xs text-on-surface-variant" id="pinStateTxt">Not set</div>
+      </div>
+      <button type="button" onclick="openPinModal()" class="px-3 py-1.5 rounded-xl bg-white text-primary text-xs font-bold shadow-sm">✏️ Set / Update PIN</button>
+    </div>
+  </div>
+
+  <!-- Data, Backup & Account Actions -->
+  <div class="rounded-2xl bg-surface-container-lowest p-5 shadow-sm border border-surface-container flex flex-col gap-3">
+    <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+      <div>
+        <div class="text-sm font-bold text-on-surface">AR Smart Service Engine</div>
+        <div class="text-xs text-on-surface-variant">Web Portal &amp; Android Capacitor Build</div>
+      </div>
+      <div class="text-right">
+        <span class="text-xs font-bold text-primary" id="vv">v45.0.0</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <button type="button" onclick="exportDataDump()" class="py-3 px-4 rounded-xl bg-surface-container-low text-on-surface font-bold text-xs flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+        Download Local Backup (.json)
+      </button>
+      <button type="button" onclick="clearAppCache()" class="py-3 px-4 rounded-xl bg-surface-container-low text-on-surface font-bold text-xs flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px] text-secondary">restart_alt</span>
+        Clear Old Cache &amp; Refresh
+      </button>
+    </div>
+
+    <div id="cPw" class="hidden">
+      <button id="pw" type="button" class="w-full py-2.5 rounded-xl bg-surface-container-low text-primary font-bold text-xs">🔑 Send Password Reset Email</button>
+      <div id="pwm" class="text-xs font-semibold mt-1"></div>
+    </div>
+
+    <button id="lo" type="button" class="hidden w-full py-3 rounded-xl bg-error-container text-on-error-container font-bold text-sm">🚪 Log Out</button>
+  </div>
+
+</main>
+
+<!-- PIN Modal -->
+<div id="pin-modal" class="fixed inset-0 z-50 bg-primary/40 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
+    <div class="flex items-center justify-between mb-2">
+      <h3 class="text-base font-bold text-on-surface">Set 4-Digit App PIN</h3>
+      <button type="button" onclick="closePinModal()" class="w-8 h-8 rounded-full bg-surface-container-low text-on-surface-variant">✕</button>
+    </div>
+    <p class="text-xs text-on-surface-variant mb-3">Used when App Lock is enabled in the Android APK.</p>
+    <input id="pinInp" type="password" inputmode="numeric" maxlength="6" placeholder="Enter 4–6 digit PIN" class="w-full px-3 py-2.5 rounded-xl border border-surface-container-highest text-center text-lg tracking-widest mb-3"/>
+    <div class="flex gap-2">
+      <button type="button" onclick="closePinModal()" class="flex-1 py-2.5 rounded-xl bg-surface-container-low font-bold text-xs">Cancel</button>
+      <button type="button" onclick="savePin()" class="flex-1 py-2.5 rounded-xl bg-secondary-container text-white font-bold text-xs">Save PIN</button>
+    </div>
+  </div>
+</div>
+
+<nav id="nv"></nav>
+<script src="fb.js"></script><script src="nav.js"></script><script src="role.js?v=45.0"></script>
+<script>
+const $=s=>document.querySelector(s);let U=null,ROLE=null;
+const APP=(window.AR_IS_APK||location.hostname==='localhost')?'https://arsmart.co.in/app/':(location.origin+location.pathname.replace(/settings\.html$/,''));
+const SHARE_TXT='AR Smart Service – AC & RO Service App: '+APP;
 $('#shr').onclick=async()=>{try{if(navigator.share){await navigator.share({title:'AR Smart Service',text:SHARE_TXT,url:APP});return}}catch(e){if(e&&e.name=='AbortError')return}window.open('https://wa.me/?text='+encodeURIComponent(SHARE_TXT),'_blank')};
-FB.onAuth(async u=>{U=u;
- $('#cLogin').style.display=u?'none':'block';['cProf','cRole','cPw'].forEach(i=>$('#'+i).style.display=u?'block':'none');$('#lo').style.display=u?'block':'none';
- $('#em').textContent=u?u.email:'Not logged in';if(!u)return;
- try{ROLE=await FB.role(u);ARNAV.set(ROLE);ARNAV.render($('#nv'),'set',ROLE)}catch(e){ROLE='customer'}
- if(ROLE=='admin'){location.replace('index.html#/settings');return}
- $('#rl').textContent=ROLE=='tech'?'You are logged in as a technician.':'You are logged in as a customer.';
- if(ROLE=='tech'){$('#rtn').style.display='block';$('#fa').style.display='none'}
- try{const p=await FB.getProfile(u.uid)||{};$('#pn').value=p.name||'';$('#pm').value=p.mobile||'';$('#pa').value=p.addr||''}catch(e){}});
-$('#ps').onclick=async()=>{if(!U)return;const n=$('#pn').value.trim(),m=$('#pm').value.replace(/\D/g,'').slice(-10),a=$('#pa').value.trim(),o=$('#pmsg');
- if(!n){o.className='msg er';o.textContent='Enter name';return}if(m&&m.length!=10){o.className='msg er';o.textContent='Mobile must be 10 digits';return}
- const d={name:n,mobile:m,email:U.email};if(ROLE!='tech')d.addr=a;
- try{await FB.setProfile(U.uid,d);o.className='msg ok';o.textContent='✅ Saved'}catch(e){o.className='msg er';o.textContent='Not saved – check internet'}};
-$('#pw').onclick=async()=>{const o=$('#pwm');try{await FB.reset(U.email);o.className='msg ok';o.textContent='✅ Email sent (check spam too)'}catch(e){o.className='msg er';o.textContent='Email could not be sent'}};
-$('#lo').onclick=()=>{['cProf','cRole','cPw'].forEach(i=>{const e=$('#'+i);if(e)e.style.display='none'});FB.logout()};
-try{if(window.AR_VERSION)$('#vv').textContent=window.AR_VERSION}catch(e){}
-if(!window.AR_IS_APK&&location.hostname!=='localhost'&&'serviceWorker'in navigator&&location.protocol.indexOf('http')==0)navigator.serviceWorker.register('sw.js').catch(()=>{});
-</script></body></html>
+
+function syncLockUI(){
+  const on=localStorage.getItem('arlockon')==='1';
+  $('#bio-toggle').checked=on;
+  $('#lockStatusBadge').textContent=on?'Active':'Off';
+  $('#pinStateTxt').textContent=localStorage.getItem('arpin')?'PIN Configured':'Not set';
+}
+syncLockUI();
+$('#bio-toggle').onchange=function(){
+  localStorage.setItem('arlockon', this.checked?'1':'0');
+  syncLockUI();
+};
+
+function openPinModal(){ $('#pin-modal').classList.remove('hidden'); $('#pin-modal').classList.add('flex'); }
+function closePinModal(){ $('#pin-modal').classList.add('hidden'); $('#pin-modal').classList.remove('flex'); }
+function savePin(){
+  const v=($('#pinInp').value||'').trim();
+  if(v.length<4){ alert('Please enter at least 4 digits.'); return; }
+  localStorage.setItem('arpin', btoa(v));
+  localStorage.setItem('arlockon', '1');
+  syncLockUI(); closePinModal();
+}
+function exportDataDump(){
+  const data={};
+  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('ar'))data[k]=localStorage.getItem(k);}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='AR_SmartService_Backup_'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+}
+async function clearAppCache(){
+  try{if('serviceWorker'in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const r of regs)await r.unregister();}}catch(e){}
+  try{if('caches'in window){const ks=await caches.keys();for(const k of ks)await caches.delete(k);}}catch(e){}
+  location.reload();
+}
+
+FB.onAuth(async u=>{
+  U=u;
+  $('#cLogin').classList.toggle('hidden', !!u);
+  ['cProf','cPw','lo'].forEach(i=>$('#'+i).classList.toggle('hidden', !u));
+  $('#em').textContent=u?u.email:'Not logged in';
+  if(!u)return;
+  try{ROLE=await FB.role(u);ARNAV.set(ROLE);ARNAV.render($('#nv'),'set',ROLE)}catch(e){ROLE='customer'}
+  $('#roleBadge').textContent=ROLE||'User';
+  $('#rl').textContent='Logged in as '+(ROLE||'customer');
+  if(ROLE==='admin') $('#admBtn').classList.remove('hidden');
+  if(ROLE==='tech') $('#fa').classList.add('hidden');
+  try{const p=await FB.getProfile(u.uid)||{};$('#pn').value=p.name||'';$('#pm').value=p.mobile||'';$('#pa').value=p.addr||'';if(p.name)$('#profNameHeading').textContent=p.name;}catch(e){}
+});
+
+$('#ps').onclick=async()=>{
+  if(!U)return;
+  const n=$('#pn').value.trim(),m=$('#pm').value.replace(/\D/g,'').slice(-10),a=$('#pa').value.trim(),o=$('#pmsg');
+  if(!n){o.className='text-xs font-semibold mt-2 text-error';o.textContent='Enter name';return}
+  const d={name:n,mobile:m,email:U.email};if(ROLE!=='tech')d.addr=a;
+  try{await FB.setProfile(U.uid,d);o.className='text-xs font-semibold mt-2 text-green-700';o.textContent='✅ Saved';}catch(e){o.className='text-xs font-semibold mt-2 text-error';o.textContent='Not saved – check internet';}
+};
+$('#pw').onclick=async()=>{const o=$('#pwm');try{await FB.reset(U.email);o.className='text-xs font-semibold mt-1 text-green-700';o.textContent='✅ Reset email sent';}catch(e){o.className='text-xs font-semibold mt-1 text-error';o.textContent='Could not send email';}};
+$('#lo').onclick=()=>{FB.logout()};
+try{if(window.AR_VERSION)$('#vv').textContent='v'+window.AR_VERSION}catch(e){}
+</script>
+</body></html>

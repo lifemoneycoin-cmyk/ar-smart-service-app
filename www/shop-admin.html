@@ -30,8 +30,8 @@ input,textarea,select{width:100%;font:inherit;border:1.5px solid var(--bd);borde
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
 .bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
 .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#18222f;color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;display:none;z-index:60}
-</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
-<script src="app-bridge.js"></script>
+</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css?v=44.1">
+<script src="app-bridge.js?v=43.0"></script>
 </head><body><div class="w">
 <div class="top"><h1>🛒 Shop – Admin</h1><p>Products, orders and delivery</p></div>
 <div class="tabs"><button data-t="o" class="on">📦 Orders<b id="nb" style="display:none"></b></button><button data-t="p">🏷️ Product</button><button data-t="s">⚙️ Settings</button></div>
@@ -129,7 +129,7 @@ document.addEventListener('click',async e=>{const t=e.target,g=a=>t.closest('['+
  if(g('data-ssave')){saveShop();return}
  if(g('data-x')){close();return}});
 FB.getConfig().then(c=>{if(c){CFG=c;if(TAB=='s')draw()}}).catch(()=>{});
-FB.onAuth(async u=>{ADM=false;if(!u){location.replace('login.html');return}try{const r=await FB.role(u);ADM=r=='admin'}catch(e){}draw();if(!ADM)return;
+FB.onAuth(async u=>{ADM=false;if(!u){location.replace('index.html');return}try{const r=await FB.role(u);ADM=r=='admin'}catch(e){}draw();if(!ADM)return;
  FB.docGet('config','shop').then(s=>{if(s)Object.assign(SHOP,s);if(TAB=='s')draw()}).catch(()=>{});
  FB.watch('products',null,null,l=>{P=l.filter(x=>!x.deleted);draw()});
  FB.watch('orders',null,null,l=>{O=l;if(TAB=='o')draw();else draw()})});

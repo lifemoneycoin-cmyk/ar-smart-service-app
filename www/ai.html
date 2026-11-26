@@ -25,8 +25,8 @@ body{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .bar button{border:0;border-radius:14px;background:linear-gradient(135deg,#0f4bc4,#1e88ff);color:#fff;font:inherit;font-weight:700;padding:0 18px}.bar button:disabled{opacity:.55}
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(15,50,120,.1);padding-bottom:env(safe-area-inset-bottom,0px)}
 .bnav a{flex:1;text-align:center;text-decoration:none;color:var(--mu);font-size:11px;padding:8px 0 7px}.bnav a i{display:block;font-style:normal;font-size:21px}.bnav a.on{color:var(--pri);font-weight:700}
-.bk39{background:rgba(255,255,255,.2);border:0;color:inherit;width:40px;height:40px;border-radius:13px;font-size:18px;flex:none;cursor:pointer}</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css">
-<script src="app-bridge.js"></script>
+.bk39{background:rgba(255,255,255,.2);border:0;color:inherit;width:40px;height:40px;border-radius:13px;font-size:18px;flex:none;cursor:pointer}</style><script src="lang.js"></script><link rel="stylesheet" href="theme.css?v=44.1">
+<script src="app-bridge.js?v=43.0"></script>
 </head><body><div class="w">
 <div class="top" style="display:flex;align-items:center;gap:12px"><button class="bk39" onclick="bk39()" aria-label="Back">←</button><div><h1>🤖 AI Assistant</h1><p>For technicians – questions on faults, error codes, gas/pressure, parts</p></div></div>
 <div id="log"></div><div class="sg" id="sg"></div></div>
@@ -77,6 +77,6 @@ async function send(){
  catch(e){H.push({role:'assistant',content:'Internet/server problem – please try again.',err:1})}
  BUSY=0;$('#go').disabled=false;save();draw()}
 $('#go').onclick=send;$('#q').addEventListener('keydown',e=>{if(e.key=='Enter'&&!e.shiftKey){e.preventDefault();send()}});
-FB.onAuth(async u=>{USER=u;if(!u){location.replace('login.html');return}try{ROLE=await FB.role(u)}catch(e){}if(ROLE=='customer'){location.replace('booking.html#my=1');return}ARNAV.set(ROLE);ARNAV.render($('#nv'),'ai',ROLE);draw()});
+FB.onAuth(async u=>{USER=u;if(!u){location.replace('tech.html');return}try{ROLE=await FB.role(u)}catch(e){}if(ROLE=='customer'){location.replace('booking.html#my=1');return}ARNAV.set(ROLE);ARNAV.render($('#nv'),'ai',ROLE);draw()});
 draw();
 </script><script>function bk39(){if(history.length>1)history.back();else location.href="index.html"}</script></body></html>
