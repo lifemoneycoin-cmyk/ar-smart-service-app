@@ -1,9 +1,9 @@
-name: Build Android APK (AR Smart Service)
+name: Build AR Smart Service APK (v57)
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build-apk:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -23,42 +23,175 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Capacitor & Add Android Platform
+      - name: Install & Add Android
         run: |
           npm install
-          if [ ! -d "android" ]; then npx cap add android; fi
+          npx cap add android || true
           npx cap sync android
 
-      - name: Inject Android Permissions (Notifications, Camera, Location, Contacts)
+      - name: Patch Microphone Permission & Native Voice Typing
         run: |
-          python3 - << 'PY'
-          p = "android/app/src/main/AndroidManifest.xml"
-          txt = open(p).read()
-          perms = [
-            "android.permission.POST_NOTIFICATIONS",
-            "android.permission.CAMERA",
-            "android.permission.ACCESS_FINE_LOCATION",
-            "android.permission.ACCESS_COARSE_LOCATION",
-            "android.permission.READ_CONTACTS",
-            "android.permission.READ_MEDIA_IMAGES"
-          ]
-          ins = ""
-          for pm in perms:
-            if pm not in txt:
-              ins += f'    <uses-permission android:name="{pm}" />\n'
-          if ins:
-            txt = txt.replace("<application", ins + "    <application", 1)
-          open(p, "w").write(txt)
-          PY
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
 
-      - name: Set Real AR Smart Service App Icon (Remove Default Cross)
-        run: |
-          rm -rf android/app/src/main/res/mipmap-anydpi-v26
-          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
-            mkdir -p android/app/src/main/res/mipmap-$d
-            cp www/icon-512.png android/app/src/main/res/mipmap-$d/ic_launcher.png
-            cp www/icon-512.png android/app/src/main/res/mipmap-$d/ic_launcher_round.png
-          done
+          const manifestPath = 'android/app/src/main/AndroidManifest.xml';
+          let manifest = fs.readFileSync(manifestPath, 'utf8');
+          const perms = [
+            'android.permission.CAMERA',
+            'android.permission.READ_CONTACTS',
+            'android.permission.ACCESS_COARSE_LOCATION',
+            'android.permission.ACCESS_FINE_LOCATION',
+            'android.permission.POST_NOTIFICATIONS',
+            'android.permission.READ_MEDIA_IMAGES',
+            'android.permission.RECORD_AUDIO',
+            'android.permission.MODIFY_AUDIO_SETTINGS'
+          ];
+          let addXml = '';
+          for (const p of perms) {
+            if (!manifest.includes(p)) {
+              addXml += `    <uses-permission android:name="${p}" />\n`;
+            }
+          }
+          if (!manifest.includes('RECOGNIZE_SPEECH')) {
+            addXml += `    <queries>\n        <intent><action android:name="android.speech.RecognitionService" /></intent>\n        <intent><action android:name="android.speech.action.RECOGNIZE_SPEECH" /></intent>\n    </queries>\n`;
+          }
+          if (addXml) {
+            manifest = manifest.replace('<application', addXml + '\n    <application');
+            fs.writeFileSync(manifestPath, manifest, 'utf8');
+          }
+
+          function findMainActivity(dir) {
+            for (const f of fs.readdirSync(dir)) {
+              const full = path.join(dir, f);
+              if (fs.statSync(full).isDirectory()) {
+                const res = findMainActivity(full);
+                if (res) return res;
+              } else if (f === 'MainActivity.java') {
+                return full;
+              }
+            }
+            return null;
+          }
+
+          const mainPath = findMainActivity('android/app/src/main/java');
+          const oldMain = fs.readFileSync(mainPath, 'utf8');
+          const pkgMatch = oldMain.match(/^package\s+[^;]+;/m);
+          const pkgLine = pkgMatch ? pkgMatch[0] : 'package in.co.arsmart.app;';
+
+          const newMain = `${pkgLine}
+
+          import android.Manifest;
+          import android.content.Intent;
+          import android.content.pm.PackageManager;
+          import android.os.Bundle;
+          import android.speech.RecognizerIntent;
+          import android.webkit.JavascriptInterface;
+          import android.webkit.PermissionRequest;
+          import android.webkit.WebView;
+          import androidx.activity.result.ActivityResultLauncher;
+          import androidx.activity.result.contract.ActivityResultContracts;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+          import com.getcapacitor.BridgeActivity;
+          import com.getcapacitor.BridgeWebChromeClient;
+          import org.json.JSONObject;
+          import java.util.ArrayList;
+
+          public class MainActivity extends BridgeActivity {
+              private static final int REQ_AUDIO = 4001;
+              private PermissionRequest pendingReq = null;
+              private ActivityResultLauncher<Intent> voiceLauncher;
+
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+
+                  voiceLauncher = registerForActivityResult(
+                      new ActivityResultContracts.StartActivityForResult(),
+                      result -> {
+                          if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                              ArrayList<String> list = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                              if (list != null && !list.isEmpty()) {
+                                  sendJs("window.__arVoiceResult && window.__arVoiceResult(" + JSONObject.quote(list.get(0)) + ");");
+                                  return;
+                              }
+                          }
+                          sendJs("window.__arVoiceError && window.__arVoiceError('');");
+                      }
+                  );
+
+                  if (getBridge() != null && getBridge().getWebView() != null) {
+                      WebView wv = getBridge().getWebView();
+                      wv.addJavascriptInterface(new NativeVoiceBridge(), "ARNativeVoice");
+                      wv.setWebChromeClient(new BridgeWebChromeClient(getBridge()) {
+                          @Override
+                          public void onPermissionRequest(final PermissionRequest request) {
+                              runOnUiThread(() -> {
+                                  boolean needAudio = false;
+                                  for (String r : request.getResources()) {
+                                      if (PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(r)) needAudio = true;
+                                  }
+                                  if (needAudio && ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO)
+                                          != PackageManager.PERMISSION_GRANTED) {
+                                      pendingReq = request;
+                                      ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQ_AUDIO);
+                                  } else {
+                                      request.grant(request.getResources());
+                                  }
+                              });
+                          }
+                      });
+                  }
+              }
+
+              @Override
+              public void onRequestPermissionsResult(int code, String[] perms, int[] results) {
+                  super.onRequestPermissionsResult(code, perms, results);
+                  if (code == REQ_AUDIO && pendingReq != null) {
+                      if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
+                          pendingReq.grant(pendingReq.getResources());
+                      } else {
+                          pendingReq.deny();
+                      }
+                      pendingReq = null;
+                  }
+              }
+
+              private void sendJs(final String js) {
+                  runOnUiThread(() -> {
+                      if (getBridge() != null && getBridge().getWebView() != null) {
+                          getBridge().getWebView().evaluateJavascript(js, null);
+                      }
+                  });
+              }
+
+              public class NativeVoiceBridge {
+                  @JavascriptInterface
+                  public void start(final String lang) {
+                      runOnUiThread(() -> {
+                          if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO)
+                                  != PackageManager.PERMISSION_GRANTED) {
+                              ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQ_AUDIO);
+                          }
+                          try {
+                              Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                              i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                              i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, (lang != null && !lang.isEmpty()) ? lang : "hi-IN");
+                              i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...");
+                              voiceLauncher.launch(i);
+                          } catch (Exception e) {
+                              sendJs("window.__arVoiceError && window.__arVoiceError('Google Voice Typing enable karein');");
+                          }
+                      });
+                  }
+              }
+          }
+          `.replace(/^ {10}/gm, '');
+
+          fs.writeFileSync(mainPath, newMain, 'utf8');
+          console.log('Patched successfully:', mainPath);
+          EOF
 
       - name: Build Debug APK
         run: |
@@ -66,8 +199,9 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK Artifact
+      - name: Upload AR-Smart-Service-v57 APK
         uses: actions/upload-artifact@v4
         with:
-          name: AR-Smart-Service-v46-APK
+          name: AR-Smart-Service-v57-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          
