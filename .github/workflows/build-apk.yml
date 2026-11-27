@@ -1,9 +1,9 @@
-name: Build AR Smart Service APK (v57)
+name: Build Android APK (AR Smart Service)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main, master ]
-  workflow_dispatch:
 
 jobs:
   build-apk:
@@ -23,13 +23,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install & Add Android
+      - name: Install Capacitor & Add Android Platform
         run: |
           npm install
-          npx cap add android || true
+          if [ ! -d "android" ]; then npx cap add android; fi
           npx cap sync android
 
-      - name: Patch Microphone Permission & Native Voice Typing
+      - name: Patch Permissions, Native Voice Typing & Real App Icon
         run: |
           node << 'EOF'
           const fs = require('fs');
@@ -77,7 +77,7 @@ jobs:
           const mainPath = findMainActivity('android/app/src/main/java');
           const oldMain = fs.readFileSync(mainPath, 'utf8');
           const pkgMatch = oldMain.match(/^package\s+[^;]+;/m);
-          const pkgLine = pkgMatch ? pkgMatch[0] : 'package in.co.arsmart.app;';
+          const pkgLine = pkgMatch ? pkgMatch[0] : 'package com.arsmartservice.fieldapp;';
 
           const newMain = `${pkgLine}
 
@@ -190,8 +190,17 @@ jobs:
           `.replace(/^ {10}/gm, '');
 
           fs.writeFileSync(mainPath, newMain, 'utf8');
-          console.log('Patched successfully:', mainPath);
+          console.log('Patched NativeVoiceBridge:', mainPath);
           EOF
+
+      - name: Set Real AR Smart Service App Icon (Remove Default Cross)
+        run: |
+          rm -rf android/app/src/main/res/mipmap-anydpi-v26
+          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            mkdir -p android/app/src/main/res/mipmap-$d
+            cp www/icon-512.png android/app/src/main/res/mipmap-$d/ic_launcher.png
+            cp www/icon-512.png android/app/src/main/res/mipmap-$d/ic_launcher_round.png
+          done
 
       - name: Build Debug APK
         run: |
@@ -199,9 +208,8 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload AR-Smart-Service-v57 APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AR-Smart-Service-v57-APK
+          name: AR-Smart-Service-v57-LIVE-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          
